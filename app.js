@@ -40,6 +40,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+
 app.post('/login', users.login);
 app.post('/register', users.register);
 app.get('/logout', users.logout);

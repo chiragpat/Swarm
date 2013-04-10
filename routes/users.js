@@ -37,7 +37,7 @@ exports.register = function (req, res) {
       Users = db.model('User', UserSchema);
 
   if (uname && pwd) {
-    Users.usernameAlreadyExists(uname, function(exists) {
+    Users.usernameExists(uname, function(err, exists) {
       if (exists) {
         error(res, "Username already exists");
         db.close();

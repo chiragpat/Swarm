@@ -61,7 +61,7 @@ UserSchema.statics.findByUsername = function(name, cb){
  * @param  {String}   name 
  * @param  {Function} cb   
  */
-UserSchema.statics.usernameAlreadyExists = function(name, cb){
+UserSchema.statics.usernameExists = function(name, cb){
   this.findByUsername(name, function(err, user){
     if (err) {
       return cb(err, null);
@@ -72,7 +72,7 @@ UserSchema.statics.usernameAlreadyExists = function(name, cb){
       }
       else {
         return cb(null, false);
-      }  
+      }
     }
   });
 };
