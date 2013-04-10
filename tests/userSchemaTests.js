@@ -3,7 +3,8 @@ describe('UserSchema', function(){
       mongoose   = require('mongoose'),
       assert     = chai.assert,
       should     = chai.should(),
-      UserSchema = require('../models/user'),
+      libpath    = process.env.SWARM_COV ? '../lib-cov' : '../models';
+      UserSchema = require(libpath + '/user'),
       db         = mongoose.createConnection(process.env.SWARM_DB_URL),
       TestUsers  = db.model('TestUser', UserSchema),
       user1      = new TestUsers();
