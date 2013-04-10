@@ -9,10 +9,16 @@ Multiplayer game built using HTML5 and node.js.
 1. Install [nodejs](https://github.com/joyent/node) and [npm](https://github.com/isaacs/npm)
 2. Clone this repo
 
-        git clone git@github.com:chiragpat/Swarm.git
+        $ git clone git@github.com:chiragpat/Swarm.git
 
-3. Run npm install to install dependencies
+3. Install dependencies
+        
+        $ npm install
+
 4. Set environment variable SWARM_DB_URL to the url of your mongo database.
+
+        $ echo "export SWARM_DB_URL=\"Your mongodb url goes here\"" >> ~/.bash_profile
+
 
 ## Quick Start
 To start game server 
