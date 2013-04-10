@@ -4,7 +4,7 @@ REPORTER = spec
 test: test-unit
 
 test-unit:
-				@NODE_ENV=test mocha --reporter $(REPORTER) $(MOCHA_OPTS) ./tests/*.js
+				@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER) $(MOCHA_OPTS) ./tests/*.js
 
 test-cov: lib-cov
 	@SWARM_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
