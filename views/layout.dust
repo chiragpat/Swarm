@@ -1,0 +1,9 @@
+<!doctype html>
+<html>
+  <head>
+    <title>{+title}Default Title{/title}</title>
+  </head>
+  <body>
+    {+body/}
+  </body>
+</html>
