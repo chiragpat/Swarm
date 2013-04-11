@@ -2,8 +2,8 @@ var mongoose = require('mongoose'),
     Schema   = mongoose.Schema,
     crypto   = require('crypto');
 
-//Userschema where the username always will match the given regexp
-var UserSchema = new Schema({
+//PlayerSchema where the username always will match the given regexp
+var PlayerSchema = new Schema({
   username: {type: String, match: /^[a-z0-9]([a-z0-9_-]{2,15})$/, index: true},
   hashed_password: String,
   salt: String
@@ -13,7 +13,7 @@ var UserSchema = new Schema({
  * Makes a random salt for safe encryption
  * @return {String} the generated salt
  */
-UserSchema.methods.makeSalt = function() {
+PlayerSchema.methods.makeSalt = function() {
   return Math.round((new Date().valueOf() * Math.random())) + '';
 };
 
@@ -22,7 +22,7 @@ UserSchema.methods.makeSalt = function() {
  * @param  {String} plainText 
  * @return {Boolean} true if the password was correct
  */
-UserSchema.methods.authenticate = function(plainText) {
+PlayerSchema.methods.authenticate = function(plainText) {
   return this.encryptPassword(plainText) === this.hashed_password;
 };
 
@@ -31,7 +31,7 @@ UserSchema.methods.authenticate = function(plainText) {
  * @param  {String} password 
  * @return {String} hashed_password
  */
-UserSchema.methods.encryptPassword = function(password) {
+PlayerSchema.methods.encryptPassword = function(password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };
 
@@ -40,7 +40,7 @@ UserSchema.methods.encryptPassword = function(password) {
  * also sets a salt and encrypts the plain text and puts it into the hashed_password    
  * @param  {String} password
  */
-UserSchema.virtual('password').set(function(password) {
+PlayerSchema.virtual('password').set(function(password) {
   this.salt = this.makeSalt();
   this.hashed_password = this.encryptPassword(password);
 });
@@ -51,7 +51,7 @@ UserSchema.virtual('password').set(function(password) {
  * @param  {String}   name 
  * @param  {Function} cb
  */
-UserSchema.statics.findByUsername = function(name, cb){
+PlayerSchema.statics.findByUsername = function(name, cb){
   this.findOne({username: name}, cb);
 };
 
@@ -61,13 +61,13 @@ UserSchema.statics.findByUsername = function(name, cb){
  * @param  {String}   name 
  * @param  {Function} cb   
  */
-UserSchema.statics.usernameExists = function(name, cb){
-  this.findByUsername(name, function(err, user){
+PlayerSchema.statics.usernameExists = function(name, cb){
+  this.findByUsername(name, function(err, player){
     if (err) {
       return cb(err, null);
     }
     else {
-      if (user) {
+      if (player) {
         return cb(null, true);
       }
       else {
@@ -77,4 +77,4 @@ UserSchema.statics.usernameExists = function(name, cb){
   });
 };
 
-module.exports = UserSchema;
+module.exports = PlayerSchema;

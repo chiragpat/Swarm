@@ -1,16 +1,16 @@
-var UserSchema = require('../models/user');
+var PlayerSchema = require('../models/user');
 var mongoose = require('mongoose');
 
 exports.login = function (req, res) {
-  var uname = req.body.uname,
-      pwd   = req.body.pwd,
-      db    = mongoose.createConnection(process.env.SWARM_DB_URL),
-      Users = db.model('User', UserSchema);
+  var uname   = req.body.uname,
+      pwd     = req.body.pwd,
+      db      = mongoose.createConnection(process.env.SWARM_DB_URL),
+      Player = db.model('Player', PlayerSchema);
 
   if (uname && pwd) {
-    Users.findByUsername(uname, function(err, user){
-      if (user) {
-        if (user.authenticate(pwd)) {
+    Player.findByUsername(uname, function(err, player){
+      if (player) {
+        if (player.authenticate(pwd)) {
           req.session.loggedin = true;
           req.session.uname = uname;
           success(res, {'uname': uname});
@@ -31,22 +31,22 @@ exports.login = function (req, res) {
 };
 
 exports.register = function (req, res) {
-  var uname = req.body.uname,
-      pwd   = req.body.pwd,
-      db    = mongoose.createConnection(process.env.SWARM_DB_URL),
-      Users = db.model('User', UserSchema);
+  var uname  = req.body.uname,
+      pwd    = req.body.pwd,
+      db     = mongoose.createConnection(process.env.SWARM_DB_URL),
+      Player = db.model('Player', PlayerSchema);
 
   if (uname && pwd) {
-    Users.usernameExists(uname, function(err, exists) {
+    Player.usernameExists(uname, function(err, exists) {
       if (exists) {
         error(res, "Username already exists");
         db.close();
       }
       else {
-        var user = new Users();
-        user.username = uname;
-        user.password = pwd;
-        user.save(function(){
+        var player = new Player();
+        player.username = uname;
+        player.password = pwd;
+        player.save(function(){
           req.session.loggedin = true;
           req.session.username = uname;
           success(res, {'uname': uname});
