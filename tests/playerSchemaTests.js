@@ -1,29 +1,29 @@
-describe('UserSchema', function(){
+describe('PlayerSchema', function(){
   var chai       = require('chai'),
       mongoose   = require('mongoose'),
       assert     = chai.assert,
       should     = chai.should(),
       libpath    = process.env.SWARM_COV ? '../lib-cov' : '../models';
-      UserSchema = require(libpath + '/player'),
+      PlayerSchema = require(libpath + '/player'),
       db         = mongoose.createConnection(process.env.SWARM_DB_URL),
-      TestUsers  = db.model('TestUser', UserSchema),
-      user1      = new TestUsers();
+      TestPlayers  = db.model('TestPlayer', PlayerSchema),
+      player1      = new TestPlayers();
 
   before(function(done){
-    TestUsers.remove({}, function(err){
+    TestPlayers.remove({}, function(err){
       if (err) {
         return done(err);
       }
 
-      user1.username = 'test1';
-      user1.password = 'test11';
-      user1.save(done);
+      player1.username = 'test1';
+      player1.password = 'test11';
+      player1.save(done);
     });
   });
 
   describe('.findByUsername', function(){
     it('should return the user object if it exists', function(done){
-      TestUsers.findByUsername('test1', function(err, doc){
+      TestPlayers.findByUsername('test1', function(err, doc){
         if (err) {
           done(err);
         }
@@ -36,7 +36,7 @@ describe('UserSchema', function(){
     });
 
     it('should return nothing if user does no exist', function(done){
-      TestUsers.findByUsername('user111', function(err, doc){
+      TestPlayers.findByUsername('user111', function(err, doc){
         if (err) {
           done(err);
         }
@@ -50,7 +50,7 @@ describe('UserSchema', function(){
 
   describe('.usernameExists', function(){
     it('should return true if username already exists', function(done){
-      TestUsers.usernameExists('test1', function(err, exists){
+      TestPlayers.usernameExists('test1', function(err, exists){
         if (err) {
           done(err);
         }
@@ -62,7 +62,7 @@ describe('UserSchema', function(){
     });
 
     it('should return false if username does not exist', function(done){
-      TestUsers.usernameExists('test111', function(err, exists){
+      TestPlayers.usernameExists('test111', function(err, exists){
         if (err) {
           done(err);
         }
@@ -76,18 +76,18 @@ describe('UserSchema', function(){
 
   describe('#authenticate', function(){
     it('should return true if the password matches the user password', function(done){
-      (user1.authenticate('test11')).should.be.true;
+      (player1.authenticate('test11')).should.be.true;
       done();
     });
 
     it('should return false if the password does not match the user password', function(done){
-      (user1.authenticate('test111')).should.be.false;
+      (player1.authenticate('test111')).should.be.false;
       done();
     });
   });
 
   after(function(done){
-    TestUsers.remove({}, function(err){
+    TestPlayers.remove({}, function(err){
       db.close();
       done();
     });
