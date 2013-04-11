@@ -1,4 +1,4 @@
-var PlayerSchema = require('../models/user');
+var PlayerSchema = require('../models/player');
 var mongoose = require('mongoose');
 
 exports.login = function (req, res) {
