@@ -1,11 +1,11 @@
-describe('PlayerSchema', function(){
-  var chai       = require('chai'),
-      mongoose   = require('mongoose'),
-      assert     = chai.assert,
-      should     = chai.should(),
-      libpath    = process.env.SWARM_COV ? '../lib-cov' : '../models';
-      PlayerSchema = require(libpath + '/player'),
-      db         = mongoose.createConnection(process.env.SWARM_DB_URL),
+describe('Player Schema', function(){
+  var chai         = require('chai'),
+      mongoose     = require('mongoose'),
+      assert       = chai.assert,
+      should       = chai.should(),
+      libpath      = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
+      PlayerSchema = require(libpath + '/models/player'),
+      db           = mongoose.createConnection(process.env.SWARM_DB_URL),
       TestPlayers  = db.model('TestPlayer', PlayerSchema),
       player1      = new TestPlayers();
 
@@ -55,6 +55,7 @@ describe('PlayerSchema', function(){
           done(err);
         }
         else {
+          should.not.exist(err);
           exists.should.be.true;
           done();
         }

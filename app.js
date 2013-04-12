@@ -4,8 +4,8 @@
  */
 
 var express = require('express'),
-    routes = require('./routes'),
-    players = require('./routes/players'),
+    routes = require('./lib/routes'),
+    players = require('./lib/routes/players'),
     http = require('http'),
     path = require('path'),
     cons = require('consolidate'),
