@@ -1,5 +1,54 @@
 {>"layout"/}
 
 {<body}
-  <h1>Welcome {title}</h1>
+<div class="main">
+
+			  <h1 class="title" onclick="slider.slide(1);return false;">Swarm</h1>
+	<div id="slider" class="swipe">
+  		<div class="swipe-wrap">
+
+
+			<div class="login" style="display:none;">
+					<input type="text" placeholder="username">
+					<input type="text" placeholder="password">
+					<a href="" class="login btn">Login</a>
+			</div>
+
+			<div class="index">
+			  <ul class="menu">
+			  	<li><a href="#" onclick="slider.slide(0);return false;">Login</a></li>
+			  	<li><a href="#" onclick="slider.slide(2);return false;">Register</a></li>
+			  </ul>
+			</div>
+
+			<div class="register" style="display:none;">
+				<input type="text" placeholder="username">
+				<input type="text" placeholder="password">
+				<input type="text" placeholder="verify password">
+				<a href="" class="register btn">Register</a>
+			</div>
+
+			</div>
+
+		</div>
+	</div>
+	<script src='js/swipe.js'></script>
+	<script>
+
+	window.slider = new Swipe(document.getElementById('slider'), {
+		speed: 400,
+		startSlide: 1,
+	});
+
+/*	var elem = document.getElementById('slider');
+	window.slider = Swipe(elem, {
+	  // startSlide: 4,
+	  
+	  // continuous: true,
+	  // disableScroll: true,
+	  // stopPropagation: true,
+	  // callback: function(index, element) {},
+	  // transitionEnd: function(index, element) {}
+	});
+*/	</script>
 {/body}

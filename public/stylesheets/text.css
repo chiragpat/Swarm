@@ -1,0 +1,173 @@
+/*
+  960 Grid System ~ Text CSS.
+  Learn more ~ http://960.gs/
+
+  Licensed under GPL and MIT.
+*/
+
+/* `Basic HTML
+----------------------------------------------------------------------------------------------------*/
+
+
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('../fonts/BebasNeue-webfont.eot');
+    src: url('../fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BebasNeue-webfont.woff') format('woff'),
+         url('../fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('../fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body, input, a {
+  font: 30px/1.2 'BebasNeueRegular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color:#333333;
+  word-wrap: break-word;
+}
+
+pre,
+code {
+  font-family: 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+}
+
+hr {
+  border: 0 #ccc solid;
+  border-top-width: 1px;
+  clear: both;
+  height: 0;
+}
+
+/* `Headings
+----------------------------------------------------------------------------------------------------*/
+
+h1 {
+  font-size: 60px;
+  color:#000;
+}
+
+h2 {
+  font-size: 23px;
+  color:#777777;
+}
+
+h3 {
+  font-size: 21px;
+  color:#777777;
+}
+
+h4 {
+  font-size: 19px;
+  color:#777777;
+}
+
+h5 {
+  font-size: 17px;
+  color:#777777;
+}
+
+h6 {
+  font-size: 15px;
+  color:#777777;
+}
+
+h6 {
+  font-size: 15px;
+  color:#777777;
+}
+
+h7 {
+  font-size: 14px;
+  color:#777777;
+}
+
+.black {
+  color:#333333 !important;
+}
+
+.blackbold {
+  color:#333333 !important;
+  text-decoration: bold;
+}
+
+.blackbold:hover {
+  color:#761db9 !important;
+}
+
+.white {
+  color:#ffffff !important;
+}
+
+/* `Spacing
+----------------------------------------------------------------------------------------------------*/
+
+ol li {
+  list-style: decimal;
+}
+
+ul li {
+  list-style: disc;
+}
+
+li {
+  margin-left: 0px;
+}
+
+a:link, a:focus, a:visited {
+/*  color: #3078CA;
+*/  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+/*  color: #761db9;
+*/  text-decoration: none;
+}
+
+#nav a {
+  color: #555;
+}
+
+#nav a:hover {
+  color: #3078CA;
+}
+
+dl,
+hr,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+pre,
+table,
+address,
+fieldset,
+figure {
+  margin-bottom: 0px;
+}
+
+
+/* Custom Font styling
+----------------------------------------------------------------------------------------------------*/
+
+/* a grayed out font on the right, used in search bar */
+.sub-right {
+  float: right;
+  color: #999;
+}
+
+textarea {
+  font: 13px/1.5 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color:#333333;
+}
+
+input {
+  font-size: 30px;
+  text-align: center;
+}
