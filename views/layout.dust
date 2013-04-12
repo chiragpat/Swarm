@@ -8,5 +8,15 @@
   </head>
   <body>
     {+body/}
+
+    <script src='js/swipe.js'></script>
+    <script>
+
+    window.slider = new Swipe(document.getElementById('slider'), {
+        speed: 400,
+        startSlide: 1,
+    });
+    </script>
+    
   </body>
 </html>
