@@ -5,8 +5,8 @@ $$(document).ready(function(){
   });
 
   $$('[data-slide]').on('tap', function(e) {
-    var slide_no = $$(this).data('slide');
     e.preventDefault();
+    var slide_no = $$(this).data('slide');
     slider.slide(slide_no);
   });
 
