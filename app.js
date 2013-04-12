@@ -45,6 +45,9 @@ app.post('/login', players.login);
 app.post('/register', players.register);
 app.get('/logout', players.logout);
 
+app.get('/animation-demo', function(req, res){
+  res.render('animation-demo');
+});
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });

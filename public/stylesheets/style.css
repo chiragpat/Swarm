@@ -25,13 +25,14 @@ a {
 	margin-top: 10px;
 	width: 100%;
 	-webkit-transition: width .1s ease-in;
-	-moz-transition: width .1s ease-in;
-	-ms-transition: width .1s ease-in;
-	-o-transition: width .1s ease-in;
-	transition: width .1s ease-in;
-	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+	   -moz-transition: width .1s ease-in;
+	    -ms-transition: width .1s ease-in;
+	     -o-transition: width .1s ease-in;
+	        transition: width .1s ease-in;
+	
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
+	        box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 .btn:hover, .menu a:hover {
@@ -45,8 +46,8 @@ input {
 	width: 100%;
 	margin-top: 10px;
 	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
-	box-sizing: border-box;         /* Opera/IE 8+ */
+ 	   -moz-box-sizing: border-box; /* Firefox, other Gecko */
+	        box-sizing: border-box; /* Opera/IE 8+ */
 }
 
 .menu li {
@@ -59,9 +60,9 @@ input {
 
 .swipe {
   overflow: hidden;
-/*  visibility: hidden;
-*/  position: relative;
+  position: relative;
 }
+
 .swipe-wrap {
   overflow: hidden;
   position: relative;
@@ -70,4 +71,8 @@ input {
   float:left;
   width:100%;
   position: relative;
+}
+
+.login-container, .register-container {
+  display: none;
 }

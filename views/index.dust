@@ -3,28 +3,28 @@
 {<body}
 <div class="main">
 
-    <h1 class="title" onclick="slider.slide(1);return false;">Swarm</h1>
+    <h1 class="title" data-slide="1">Swarm</h1>
 
     <div id="slider" class="swipe">
         <div class="swipe-wrap">
 
-            <div class="login" style="display:none;">
-                    <input type="text" placeholder="username">
-                    <input type="text" placeholder="password">
+            <div class="login-container">
+                    <input type="text" name="uname" placeholder="username">
+                    <input type="password" name="pwd" placeholder="password">
                     <a href="" class="login btn">Login</a>
             </div>
 
             <div class="index">
                 <ul class="menu">
-                    <li><a href="#" onclick="slider.slide(0);return false;">Login</a></li>
-                    <li><a href="#" onclick="slider.slide(2);return false;">Register</a></li>
+                    <li><a href="#" class="btn" data-slide="0">Login</a></li>
+                    <li><a href="#" class="btn" data-slide="2">Register</a></li>
                 </ul>
             </div>
 
-            <div class="register" style="display:none;">
-                <input type="text" placeholder="username">
-                <input type="text" placeholder="password">
-                <input type="text" placeholder="verify password">
+            <div class="register-container">
+                <input type="text" name="uname" placeholder="username">
+                <input type="password" name="pwd" placeholder="password">
+                <input type="password" name="cpwd" placeholder="verify password">
                 <a href="" class="register btn">Register</a>
             </div>
 
@@ -33,3 +33,7 @@
 
 </div>
 {/body}
+
+{<script}
+<script src='js/index.js'></script>
+{/script}
