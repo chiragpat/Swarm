@@ -1,10 +1,11 @@
 $$(document).ready(function(){
   var moveShip;
+  var env = $$.environment();
 
   var stage = new Kinetic.Stage({
     container: 'container',
-    width: 578,
-    height: 200
+    width: env.screen.width-100,
+    height: env.screen.height-100
   });
 
   var layer = new Kinetic.Layer();
@@ -27,9 +28,9 @@ $$(document).ready(function(){
       context.beginPath();
       //Draw the actual ship
       context.moveTo(x, y);
-      context.lineTo(x-width/2, y+length);
-      context.lineTo(x, y+length-length/5);
-      context.lineTo(x+width/2, y+length);
+      context.lineTo(x-width/2, y+length/5);
+      context.lineTo(x,y-4*length/5);
+      context.lineTo(x+width/2, y+length/5);
       context.lineTo(x, y);
       context.closePath();
       canvas.fillStroke(this);
@@ -41,7 +42,8 @@ $$(document).ready(function(){
     fill: '#00D2FF',
     stroke: 'black',
     strokeWidth: 2,
-    rotationRadius: 1.5*circle.getRadius()
+    rotationRadius: 1.5*circle.getRadius(),
+    location: {}
   };
 
   var shipMovingObj = {
@@ -74,9 +76,13 @@ $$(document).ready(function(){
   ships = [];
   angle = Math.PI/10;
 
-  for (var i = 0; i < 5; i++) {
+  for (var i = 0; i < 8; i++) {
     var temp_ship = new Kinetic.Shape(shipObj);
     temp_ship.rotate(angle*i);
+    temp_ship.attrs.location = {
+      x: temp_ship.getX() + (temp_ship.attrs.rotationRadius * Math.cos(temp_ship.getRotation())),
+      y: temp_ship.getY() + (temp_ship.attrs.rotationRadius * Math.sin(temp_ship.getRotation()))
+    };
     ships.push(temp_ship);
     layer.add(temp_ship);
   }
@@ -91,9 +97,26 @@ $$(document).ready(function(){
   var j = 0;
   var anim = new Kinetic.Animation(function(frame) {
     var angleDiff = frame.timeDiff * angularSpeed / 1000;
+    if(j == 300) {
+      x = Math.floor(Math.random()*stage.getWidth());
+      y = Math.floor(Math.random()*stage.getHeight());
+      for (var i = ships.length - 1; i >= 0; i--) {
+        var t_ship = ships[i];
+        t_ship.attrs.rotationRadius = 0;
+        t_ship.attrs.x = t_ship.attrs.location.x;
+        t_ship.attrs.y = t_ship.attrs.location.y;
+        moveShip(t_ship, {x: x-10*i, y: y-10*i});
+      }
+      ships = [];
+    }
+    j++;
     circle.rotate(angleDiff);
     for (var i = 0; i < ships.length; i++) {
       ships[i].rotate(-2*angleDiff);
+      ships[i].attrs.location = {
+        x: ships[i].getX() + (ships[i].attrs.rotationRadius * Math.cos(ships[i].getRotation())),
+        y: ships[i].getY() + (ships[i].attrs.rotationRadius * Math.sin(ships[i].getRotation()))
+      };
     }
 
   }, layer);
