@@ -76,7 +76,7 @@ $$(document).ready(function(){
   ships = [];
   angle = Math.PI/10;
 
-  for (var i = 0; i < 8; i++) {
+  for (var i = 0; i < 15; i++) {
     var temp_ship = new Kinetic.Shape(shipObj);
     temp_ship.rotate(angle*i);
     temp_ship.attrs.location = {
@@ -95,21 +95,31 @@ $$(document).ready(function(){
 
   var angularSpeed = Math.PI / 12;
   var j = 0;
+  var ptx = Math.floor(Math.random()*stage.getWidth());
+  var pty = Math.floor(Math.random()*stage.getHeight());
   var anim = new Kinetic.Animation(function(frame) {
     var angleDiff = frame.timeDiff * angularSpeed / 1000;
-    if(j == 300) {
-      x = Math.floor(Math.random()*stage.getWidth());
-      y = Math.floor(Math.random()*stage.getHeight());
-      for (var i = ships.length - 1; i >= 0; i--) {
-        var t_ship = ships[i];
-        t_ship.attrs.rotationRadius = 0;
-        t_ship.attrs.x = t_ship.attrs.location.x;
-        t_ship.attrs.y = t_ship.attrs.location.y;
-        moveShip(t_ship, {x: x-10*i, y: y-10*i});
-      }
-      ships = [];
+
+    if (ships[0] && Math.round(ships[0].attrs.location.x) == circle.getX() &&
+        Math.round(ships[0].attrs.location.y) == circle.getY() - ships[0].attrs.rotationRadius){
+      var t_ship = ships[0];
+      t_ship.attrs.rotationRadius = 0;
+      t_ship.attrs.x = t_ship.attrs.location.x;
+      t_ship.attrs.y = t_ship.attrs.location.y;
+      ships.splice(0, 1);
+
+      var test = function(x, y){
+        if (!x) {
+          x = Math.floor(Math.random()*stage.getWidth());
+        }
+
+        if (!y) {
+          y = Math.floor(Math.random()*stage.getHeight());
+        }
+        moveShip(t_ship, {x: x, y: y}, test);
+      };
+      test(ptx, pty);
     }
-    j++;
     circle.rotate(angleDiff);
     for (var i = 0; i < ships.length; i++) {
       ships[i].rotate(-2*angleDiff);
@@ -121,8 +131,15 @@ $$(document).ready(function(){
 
   }, layer);
 
-  function infiniteMove(){
-    moveShip(moving_ship, {x: Math.floor(Math.random()*stage.getWidth()), y: Math.floor(Math.random()*stage.getHeight())},
+  function infiniteMove(x, y){
+    if (!x) {
+      x = Math.floor(Math.random()*stage.getWidth());
+    }
+
+    if (!y) {
+      y = Math.floor(Math.random()*stage.getHeight());
+    }
+    moveShip(moving_ship, {x: x, y: y},
              infiniteMove);
   }
   setTimeout(function(){
