@@ -1,4 +1,6 @@
 $$(document).ready(function(){
+  var moveShip;
+
   var stage = new Kinetic.Stage({
     container: 'container',
     width: 578,
@@ -18,7 +20,7 @@ $$(document).ready(function(){
   var shipObj = {
     drawFunc: function(canvas) {
       var context = canvas.getContext();
-      x = 1.5*circle.getRadius();
+      x = this.attrs.rotationRadius;
       y = 0;
       var length = this.attrs.length;
       var width = this.attrs.width;
@@ -38,14 +40,15 @@ $$(document).ready(function(){
     width: 3,
     fill: '#00D2FF',
     stroke: 'black',
-    strokeWidth: 2
+    strokeWidth: 2,
+    rotationRadius: 1.5*circle.getRadius()
   };
 
   var shipMovingObj = {
     drawFunc: function(canvas) {
       var context = canvas.getContext();
       x = 0;
-      y = 0;
+      y = -4*this.attrs.length/5;
 
       var length = this.attrs.length;
       var width = this.attrs.width;
@@ -85,29 +88,49 @@ $$(document).ready(function(){
   stage.add(layer);
 
   var angularSpeed = Math.PI / 12;
+  var j = 0;
   var anim = new Kinetic.Animation(function(frame) {
     var angleDiff = frame.timeDiff * angularSpeed / 1000;
     circle.rotate(angleDiff);
     for (var i = 0; i < ships.length; i++) {
       ships[i].rotate(-2*angleDiff);
     }
+
   }, layer);
 
+  function infiniteMove(){
+    moveShip(moving_ship, {x: Math.floor(Math.random()*stage.getWidth()), y: Math.floor(Math.random()*stage.getHeight())},
+             infiniteMove);
+  }
   setTimeout(function(){
-
-    moving_ship.transitionTo({
-      rotation: Math.PI/4,
-      duration: 1,
-
-      callback: function(){
-        moving_ship.transitionTo({
-          x: circle.getX(),
-          y: circle.getY() - 3*circle.getRadius(),
-          duration: 2
-        });
-      }
-    });
+    infiniteMove();
   }, 1000);
 
   anim.start();
+
+  moveShip = function(ship, pt, cb) {
+    var shipVector = {x: 0, y: -1};
+    var ptVector = {x: pt.x-ship.getX(), y: pt.y-ship.getY()};
+
+    var theta = Math.acos((shipVector.x*ptVector.x+shipVector.y*ptVector.y)/(Math.sqrt(ptVector.x*ptVector.x+ptVector.y*ptVector.y)));
+
+    if (pt.x <= ship.getX()) {
+      theta = -theta;
+    }
+
+    ship.transitionTo({
+      rotation: theta,
+      duration: 1,
+
+      callback: function(){
+        ship.transitionTo({
+          x: pt.x,
+          y: pt.y,
+          duration: 2,
+          easing: "ease-in-out",
+          callback: cb
+        });
+      }
+    });
+  };
 });

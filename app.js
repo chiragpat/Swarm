@@ -8,12 +8,12 @@ var express = require('express'),
     players = require('./lib/routes/players'),
     http = require('http'),
     path = require('path'),
-    cons = require('consolidate'),
+    dust = require('consolidate').dust,
     MongoStore = require('connect-mongo')(express);
 
 var app = express();
 
-app.engine('dust', cons.dust);
+app.engine('dust', dust);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
