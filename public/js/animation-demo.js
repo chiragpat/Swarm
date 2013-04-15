@@ -108,7 +108,7 @@ $$(document).ready(function(){
       t_ship.attrs.y = t_ship.attrs.location.y;
       ships.splice(0, 1);
 
-      var test = function(x, y){
+      var test = function(x, y, thetaDur){
         if (!x) {
           x = Math.floor(Math.random()*stage.getWidth());
         }
@@ -116,9 +116,10 @@ $$(document).ready(function(){
         if (!y) {
           y = Math.floor(Math.random()*stage.getHeight());
         }
-        moveShip(t_ship, {x: x, y: y}, test);
+
+        moveShip(t_ship, {x: x, y: y}, thetaDur, test);
       };
-      test(ptx, pty);
+      test(ptx, pty, 0.1);
     }
     circle.rotate(angleDiff);
     for (var i = 0; i < ships.length; i++) {
@@ -139,7 +140,7 @@ $$(document).ready(function(){
     if (!y) {
       y = Math.floor(Math.random()*stage.getHeight());
     }
-    moveShip(moving_ship, {x: x, y: y},
+    moveShip(moving_ship, {x: x, y: y}, null,
              infiniteMove);
   }
   setTimeout(function(){
@@ -148,19 +149,22 @@ $$(document).ready(function(){
 
   anim.start();
 
-  moveShip = function(ship, pt, cb) {
+  moveShip = function(ship, pt, thetaDur, cb) {
     var shipVector = {x: 0, y: -1};
     var ptVector = {x: pt.x-ship.getX(), y: pt.y-ship.getY()};
 
     var theta = Math.acos((shipVector.x*ptVector.x+shipVector.y*ptVector.y)/(Math.sqrt(ptVector.x*ptVector.x+ptVector.y*ptVector.y)));
 
+    if (!thetaDur) {
+      thetaDur = 1;
+    }
     if (pt.x <= ship.getX()) {
       theta = -theta;
     }
 
     ship.transitionTo({
       rotation: theta,
-      duration: 1,
+      duration: thetaDur,
 
       callback: function(){
         ship.transitionTo({
