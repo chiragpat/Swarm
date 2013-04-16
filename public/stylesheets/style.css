@@ -81,6 +81,14 @@ div.error {
   font-size: 1.75em;
   color: #B0171F;
 }
+
+#moving-ships {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -999;
+}
+
 @media only screen and (max-width: 1024px) {
     .btn:hover, .menu a:hover {
       width: 100%;
