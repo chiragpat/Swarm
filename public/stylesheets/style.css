@@ -74,6 +74,14 @@ input {
     position: relative;
 }
 
+input.error {
+  border-color: #B0171F;
+}
+
+div.error {
+  font-size: 1.75em;
+  color: #B0171F;
+}
 @media only screen and (max-width: 1024px) {
     .btn:hover, .menu a:hover {
       width: 100%;

@@ -11,7 +11,7 @@
             <div class="login-container">
                     <input type="text" name="uname" placeholder="username">
                     <input type="password" name="pwd" placeholder="password">
-                    <a href="" class="login btn">Login</a>
+                    <a href="#" class="login btn">Login</a>
             </div>
 
             <div class="index">
@@ -25,7 +25,7 @@
                 <input type="text" name="uname" placeholder="username">
                 <input type="password" name="pwd" placeholder="password">
                 <input type="password" name="cpwd" placeholder="verify password">
-                <a href="" class="register btn">Register</a>
+                <a href="#" class="register btn">Register</a>
             </div>
 
         </div>

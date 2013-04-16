@@ -51,7 +51,7 @@ describe('Player Routes', function(){
       var req = mock_request({uname: "test1", pwd: "test111"});
 
       var res = mock_response(function(){
-        (res.body).should.have.property('error', 'Invalid password');
+        (res.body).should.have.property('error', 'Incorrect password');
         done();
       });
 
