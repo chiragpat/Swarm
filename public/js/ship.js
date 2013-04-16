@@ -8,6 +8,7 @@ var Ship = function(options) {
   this.stroke = options.stroke || this.stroke;
   this.strokeWidth = options.strokeWidth || this.strokeWidth;
   this.rotationRadius = options.rotationRadius || this.rotationRadius;
+  this.velocity = options.velocity || this.velocity;
   this.kineticShape = this.generateKineticShape();
 };
 
@@ -20,7 +21,9 @@ Ship.prototype = {
   stroke: 'black',
   strokeWidth: 2,
   rotationRadius: 0,
+  velocity: 200,
   kineticShape: null,
+
 
   generateKineticShape: function() {
     var self = this;
@@ -54,13 +57,13 @@ Ship.prototype = {
 
   moveTo: function(pt, options) {
     options.thetaDur = options.thetaDur || 1;
-    options.moveDur  = options.moveDur  || 2;
     options.onFinish = options.onFinish || (function(){});
     options.easing   = options.easing   || 'ease-out';
 
     var shape = this.kineticShape,
         shipVector = {x: 0, y: -1},
-        ptVector   = {x: pt.x-shape.getX(), y: pt.y-shape.getY()};
+        ptVector   = {x: pt.x-shape.getX(), y: pt.y-shape.getY()},
+        magPtVector = Math.sqrt(ptVector.x*ptVector.x+ptVector.y*ptVector.y);
 
     var theta = Math.acos(
                   (shipVector.x*ptVector.x+shipVector.y*ptVector.y)/
@@ -70,6 +73,8 @@ Ship.prototype = {
     if (pt.x <= this.kineticShape.getX()) {
       theta = -theta;
     }
+
+    options.moveDur = magPtVector/this.velocity;
 
     shape.transitionTo({
       rotation: theta,
