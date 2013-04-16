@@ -44,6 +44,7 @@ app.get('/', routes.index);
 app.post('/login', players.login);
 app.post('/register', players.register);
 app.get('/logout', players.logout);
+app.get('/home', players.home);
 
 app.get('/animation-demo', function(req, res){
   res.render('animation-demo');

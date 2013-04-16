@@ -1,0 +1,8 @@
+{>"layout"/}
+
+{<body}
+<div class="main">
+    <h1 class="title">Swarm</h1>
+    <a href="/logout" class="btn">Logout</a>
+</div>
+{/body}

@@ -35,6 +35,7 @@ $$(document).ready(function(){
     $$uname.removeClass('error');
     $$pwd.removeClass('error');
     $$cpwd.removeClass('error');
+    $$uname.siblings('div.error').remove();
 
     if (!validUserName) {
       $$uname.addClass('error');
@@ -61,7 +62,18 @@ $$(document).ready(function(){
         $$pwd         = $$('.login-container [name="pwd"]');
 
     if (validateForm($$uname, $$pwd)) {
-      console.log("Valid");
+      $$.post('/login',
+        {uname: $$uname.val(), pwd: $$pwd.val()},
+        function(data){
+          if (!data.error) {
+            location.reload();
+          }
+          else {
+            $$error = $$('<div class="error"></div>');
+            $$error.text(data.error);
+            $$('.login-container').prepend($$error);
+          }
+        });
     }
 
     e.preventDefault();
@@ -73,7 +85,19 @@ $$(document).ready(function(){
         $$cpwd        = $$('.register-container [name=cpwd]');
 
     if (validateForm($$uname, $$pwd, $$cpwd)) {
-      console.log("Valid");
+      $$.post('/register',
+        {uname: $$uname.val(), pwd: $$pwd.val()},
+        function(data){
+          if (!data.error) {
+            location.reload();
+          }
+          else {
+            $$error = $$('<div class="error"></div>');
+            $$error.text(data.error);
+            $$('.register-container').prepend($$error);
+          }
+        }
+      );
     }
 
     e.preventDefault();
