@@ -39,7 +39,7 @@ $$(document).ready(function(){
     y: circle.getY(),
     length: 3,
     width: 3,
-    fill: '#00D2FF',
+    fill: 'black',
     stroke: 'black',
     strokeWidth: 2,
     rotationRadius: 1.5*circle.getRadius(),
@@ -68,13 +68,13 @@ $$(document).ready(function(){
     y: circle.getY(),
     length: 3,
     width: 3,
-    fill: '#00D2FF',
+    fill: 'black',
     stroke: 'black',
     strokeWidth: 2
   };
 
   ships = [];
-  angle = Math.PI/10;
+  angle = Math.PI/9;
 
   for (var i = 0; i < 15; i++) {
     var temp_ship = new Kinetic.Shape(shipObj);
