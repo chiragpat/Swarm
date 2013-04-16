@@ -114,19 +114,22 @@ $$(document).ready(function(){
 
   layer = new Kinetic.Layer();
 
-  num_ships = 15;
+  num_ships = 8;
   for (i = 0; i < num_ships; i++) {
     var ship = new Ship({
       x: Math.floor(Math.random()*stage.getWidth()),
       y: Math.floor(Math.random()*stage.getHeight()),
-      length: 10,
-      width: 10
+      length: 15,
+      width: 15
     });
 
     layer.add(ship.kineticShape);
     stage.add(layer);
     ships.push(ship);
-    ship.infiniteRandomMove();
+    ship.infiniteRandomMove({
+      moveDur: 1.25,
+      easing: 'linear'
+    });
   }
 
 

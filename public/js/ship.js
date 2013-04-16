@@ -56,6 +56,7 @@ Ship.prototype = {
     options.thetaDur = options.thetaDur || 1;
     options.moveDur  = options.moveDur  || 2;
     options.onFinish = options.onFinish || (function(){});
+    options.easing   = options.easing   || 'ease-out';
 
     var shape = this.kineticShape,
         shipVector = {x: 0, y: -1},
@@ -79,7 +80,7 @@ Ship.prototype = {
           x: pt.x,
           y: pt.y,
           duration: options.moveDur,
-          easing: "ease-in-out",
+          easing: options.easing,
           callback: options.onFinish
         });
       }
