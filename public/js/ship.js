@@ -25,6 +25,25 @@ Ship.prototype = {
   kineticShape: null,
 
 
+  setRotationRadius: function(rotationRadius) {
+    if (rotationRadius === null || rotationRadius === undefined) {
+      rotationRadius = 0;
+    }
+
+    this.rotationRadius = rotationRadius;
+    if (this.kineticShape) {
+      this.kineticShape.attrs.rotationRadius = rotationRadius;
+    }
+  },
+
+  setX: function(x) {
+    this.x = x;
+  },
+
+  setY: function(y) {
+    this.y = y;
+  },
+
   generateKineticShape: function() {
     var self = this;
     return new Kinetic.Shape({
@@ -56,6 +75,7 @@ Ship.prototype = {
   },
 
   moveTo: function(pt, options) {
+    options = options || {};
     options.thetaDur = options.thetaDur || 1;
     options.onFinish = options.onFinish || (function(){});
     options.easing   = options.easing   || 'ease-out';
@@ -74,8 +94,10 @@ Ship.prototype = {
       theta = -theta;
     }
 
-    options.moveDur = magPtVector/this.velocity;
+    var velocity = options.velocity || this.velocity;
+    options.moveDur = magPtVector/velocity;
 
+    var self = this;
     shape.transitionTo({
       rotation: theta,
       duration: options.thetaDur,
@@ -86,7 +108,11 @@ Ship.prototype = {
           y: pt.y,
           duration: options.moveDur,
           easing: options.easing,
-          callback: options.onFinish
+          callback: function(){
+            self.x = pt.x;
+            self.y = pt.y;
+            options.onFinish.call(self, options);
+          }
         });
       }
     });
@@ -94,20 +120,14 @@ Ship.prototype = {
 
   infiniteRandomMove: function(options) {
     options = options || {};
-    var self = this;
-    self.stopInfiniteMove = false;
+    var x = Math.floor(Math.random()*this.kineticShape.getStage().getWidth()),
+        y = Math.floor(Math.random()*this.kineticShape.getStage().getHeight());
 
-    var infiniteMove = function(){
-      var x = Math.floor(Math.random()*self.kineticShape.getStage().getWidth()),
-          y = Math.floor(Math.random()*self.kineticShape.getStage().getHeight());
-      options.onFinish = infiniteMove;
+    options.onFinish = this.infiniteRandomMove;
 
-      if (!self.stopInfiniteMove) {
-        self.moveTo({x: x, y: y}, options);
-      }
-    };
-
-    infiniteMove();
+    if (!this.stopInfiniteMove) {
+      this.moveTo({x: x, y: y}, options);
+    }
   },
 
   setStopInfiniteMove: function(){

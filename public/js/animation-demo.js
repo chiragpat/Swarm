@@ -11,16 +11,29 @@ $$(document).ready(function(){
   layer = new Kinetic.Layer();
   shipLayer = new Kinetic.Layer();
 
-  circle = new Kinetic.Circle({
-    x: stage.getWidth() / 2,
-    y: stage.getHeight() / 2,
-    radius: 30,
-    stroke: 'black',
-    strokeWidth: 3
+  planet = new Planet({
+    x: stage.getWidth()/2,
+    y: stage.getHeight()/2,
+    numShips: 0,
+    layer: layer
   });
+
+  var j = 0;
+  var interval = setInterval(function(){
+    if (j > 11) {
+      clearInterval(interval);
+    }
+    planet.addNewShip(new Ship({
+      x: Math.floor(Math.random()*stage.getWidth()),
+      y: Math.floor(Math.random()*stage.getHeight()),
+      rotationRadius: 0
+    }));
+    j++;
+  }, 1000);
 
   moveShip = new Ship();
   shipLayer.add(moveShip.kineticShape);
+  stage.add(layer);
   stage.add(shipLayer);
 
   moveShip.infiniteRandomMove();
