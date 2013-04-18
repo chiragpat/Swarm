@@ -107,11 +107,6 @@ div.error {
 
 .loses {
     background-color: #d80c0c;
-
-@media only screen and (max-width: 1024px) {
-    .btn:hover, .menu a:hover {
-      width: 100%;
-    }
 }
 
 .clear {
@@ -123,4 +118,10 @@ div.error {
   top: 0;
   left: 0;
   z-index: -999;
+}
+
+@media only screen and (max-width: 1024px) {
+    .btn:hover, .menu a:hover {
+      width: 100%;
+    }
 }

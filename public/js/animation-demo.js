@@ -46,11 +46,7 @@ $$(document).ready(function(){
     }));
     j++;
   }, 1000);
-  // 
-  // setTimeout(function(){
-  //   var ship = planet.ships.pop();
-  //   ship.kineticShape.remove();
-  // }, 5000);
+
   moveShip = new Ship();
   shipLayer.add(moveShip.kineticShape);
   stage.add(layer);

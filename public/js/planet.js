@@ -147,5 +147,9 @@ Planet.prototype = {
     if (this.anim) {
       this.anim.stop();
     }
+  },
+
+  moveShipsTo: function(planet) {
+
   }
 };

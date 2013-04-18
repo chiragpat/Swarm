@@ -3,7 +3,10 @@
 {<body}
 <div class="main">
     <h1 class="title">Swarm</h1>
-    <div class="score-box"><span class="score wins" data-val="10">W : 10</span> <span class="score loses" data-val="12">L : 12</span></div>
+    <div class="score-box">
+        <span class="score wins" data-val="{stats.wins}">W : {stats.wins}</span> 
+        <span class="score loses" data-val="{stats.loses}">L : {stats.loses}</span>
+    </div>
     <div class="clear"></div>
     <a href="/play" class="btn">Play</a>
     <a href="/logout" class="btn">Logout</a>
@@ -12,14 +15,18 @@
 
 {<script}
 <script>
-$$('document').ready(function() {
-    var wins = $$('.wins').data("val");
-    var loses = $$('.loses').data("val");
-    var total = parseInt(wins) + parseInt(loses);
+$$(document).ready(function() {
+    var wins = parseInt($$('.wins').data("val"), 10);
+    var loses = parseInt($$('.loses').data("val"), 10);
+    var total = wins + loses;
+    if (wins == 0 && loses == 0) {
+        wins  = 1;
+        loses = 1;
+        total = 2;
+    }
     console.log(total, wins, loses, (wins/total)*100 + "%");
     $$('.wins').style('width', (wins/total)*100 + "%");
     $$('.loses').style('width', (loses/total)*100 + "%");
-    
 });
 </script>
 {/script}
