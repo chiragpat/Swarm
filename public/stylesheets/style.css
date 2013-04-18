@@ -82,8 +82,39 @@ div.error {
   font-size: 1.75em;
   color: #B0171F;
 }
+
+.score-box {
+    color: #aaa;
+    width: 100%;
+    display: relative;
+}
+
+.wins, .loses {
+    display: inline-block;
+    color: #fff;
+    font-size: 3em;
+    height: 100px;
+    margin-right: -2px;
+    padding: 20px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+       -moz-box-sizing: border-box; /* Firefox, other Gecko */
+            box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+.wins {
+    background-color: #4eba53;
+}
+
+.loses {
+    background-color: #d80c0c;
+}
+
 @media only screen and (max-width: 1024px) {
     .btn:hover, .menu a:hover {
       width: 100%;
     }
+}
+
+.clear {
+  clear: both;
 }

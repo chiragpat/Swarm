@@ -3,6 +3,23 @@
 {<body}
 <div class="main">
     <h1 class="title">Swarm</h1>
+    <div class="score-box"><span class="score wins" data-val="10">W : 10</span> <span class="score loses" data-val="12">L : 12</span></div>
+    <div class="clear"></div>
+    <a href="/play" class="btn">Play</a>
     <a href="/logout" class="btn">Logout</a>
 </div>
 {/body}
+
+{<script}
+<script>
+$$('document').ready(function() {
+    var wins = $$('.wins').data("val");
+    var loses = $$('.loses').data("val");
+    var total = parseInt(wins) + parseInt(loses);
+    console.log(total, wins, loses, (wins/total)*100 + "%");
+    $$('.wins').style('width', (wins/total)*100 + "%");
+    $$('.loses').style('width', (loses/total)*100 + "%");
+    
+});
+</script>
+{/script}
