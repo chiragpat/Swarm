@@ -1,30 +1,18 @@
-var Ship = function(options) {
+function Ship(options) {
   options = options || {};
-  this.x = options.x || this.x;
-  this.y = options.y || this.y;
-  this.length = options.length || this.length;
-  this.width = options.width || this.width;
-  this.fill = options.fill || this.fill;
-  this.stroke = options.stroke || this.stroke;
-  this.strokeWidth = options.strokeWidth || this.strokeWidth;
-  this.rotationRadius = options.rotationRadius || this.rotationRadius;
-  this.velocity = options.velocity || this.velocity;
+  this.x = options.x || 15;
+  this.y = options.y || 15;
+  this.length = options.length || 3;
+  this.width = options.width || 3;
+  this.fill = options.fill || 'black';
+  this.stroke = options.stroke || 'black';
+  this.strokeWidth = options.strokeWidth || 2;
+  this.rotationRadius = options.rotationRadius || 0;
+  this.velocity = options.velocity || 200;
   this.kineticShape = this.generateKineticShape();
-};
+}
 
 Ship.prototype = {
-  x: 15,
-  y: 15,
-  length: 3,
-  width: 3,
-  fill: 'black',
-  stroke: 'black',
-  strokeWidth: 2,
-  rotationRadius: 0,
-  velocity: 200,
-  kineticShape: null,
-
-
   setRotationRadius: function(rotationRadius) {
     if (rotationRadius === null || rotationRadius === undefined) {
       rotationRadius = 0;

@@ -1,38 +1,28 @@
-var Planet = function(options) {
+function Planet(options) {
   options = options || {};
-  this.x = options.x || this.x;
-  this.y = options.y || this.y;
-  this.radius = options.radius || this.radius;
-  this.stroke = options.stroke || this.stroke;
-  this.strokeWidth = options.strokeWidth || this.strokeWidth;
-  this.angleBetweenShips = options.angleBetweenShips || this.angleBetweenShips;
-  this.angularSpeed = options.angularSpeed || this.angularSpeed;
+  this.x = options.x || 15;
+  this.y = options.y || 15;
+  this.radius = options.radius || 30;
+  this.stroke = options.stroke || 'black';
+  this.strokeWidth = options.strokeWidth || 3;
+  this.angleBetweenShips = options.angleBetweenShips || Math.PI/9;
+  this.angularSpeed = options.angularSpeed || Math.PI/12;
   this.kineticShape = this.generateKineticShape();
+  this.ships = [];
+  this.__lastShipOrbitRotation = 0,
+  this.__stopAnim = 0,
+  this.__firstShipAdding = false,
   this.addShips(options.numShips);
+
 
   if (options.layer) {
     this.addToLayer(options.layer);
     this.setAnimation();
     this.startAnimation();
   }
-};
+}
 
 Planet.prototype = {
-  x: 15,
-  y: 15,
-  radius: 30,
-  stroke: 'black',
-  strokeWidth: 3,
-  kineticShape: null,
-  ships: [],
-  angleBetweenShips: Math.PI/9,
-  angularSpeed: Math.PI/12,
-  anim: null,
-  layer: null,
-  __lastShipOrbitRotation: 0,
-  __stopAnim: 0,
-  __firstShipAdding: false,
-
   orbitRadius: function(){
     return 1.5 * this.radius;
   },
@@ -100,7 +90,7 @@ Planet.prototype = {
       x: orbitLocation.x,
       y: orbitLocation.y
     }, {
-      velocity: 200,
+      velocity: 300,
       onFinish: function(){
         ship.kineticShape.destroy();
         ship.setRotationRadius(self.orbitRadius());
@@ -130,7 +120,7 @@ Planet.prototype = {
     var j = 0;
     this.anim = new Kinetic.Animation(function(frame) {
       var angleDiff = frame.timeDiff * self.angularSpeed / 1000;
-
+      console.log(self.ships.length);
       for (var i = 0; i < self.ships.length; i++) {
         var ship = self.ships[i];
         ship.kineticShape.rotate(-2*angleDiff);
