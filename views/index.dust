@@ -1,6 +1,8 @@
 {>"layout"/}
 
 {<body}
+<div id="moving-ships">
+</div> 
 <div class="main">
 
     <h1 class="title" data-slide="1">Swarm</h1>
@@ -35,5 +37,6 @@
 {/body}
 
 {<script}
+<script src='js/ship.js'></script>
 <script src='js/index.js'></script>
 {/script}

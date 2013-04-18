@@ -5,5 +5,7 @@
 {/body}
 
 {<script}
-<script src='js/animation-demo.js'></script>
+<script src="js/ship.js"></script>
+<script src="js/planet.js"></script>
+<script src="js/animation-demo.js"></script>
 {/script}

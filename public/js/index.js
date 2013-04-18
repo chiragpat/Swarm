@@ -103,4 +103,34 @@ $$(document).ready(function(){
     e.preventDefault();
   });
 
+  var env, stage, layer, ships = [], num_ships, i;
+
+  env = $$.environment();
+  stage = new Kinetic.Stage({
+    container: 'moving-ships',
+    width: env.screen.width-15,
+    height: env.screen.height
+  });
+
+  layer = new Kinetic.Layer();
+
+  num_ships = 8;
+  for (i = 0; i < num_ships; i++) {
+    var ship = new Ship({
+      x: Math.floor(Math.random()*stage.getWidth()),
+      y: Math.floor(Math.random()*stage.getHeight()),
+      length: 15,
+      width: 15
+    });
+
+    layer.add(ship.kineticShape);
+    stage.add(layer);
+    ships.push(ship);
+    ship.infiniteRandomMove({
+      moveDur: 1.25,
+      easing: 'linear'
+    });
+  }
+
+
 });
