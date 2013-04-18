@@ -44,8 +44,9 @@ $$(document).ready(function(){
       y: Math.floor(Math.random()*stage.getHeight()),
       rotationRadius: 0
     }));
+    // planet.addNewShip();
     j++;
-  }, 1000);
+  }, 5000);
 
   moveShip = new Ship();
   shipLayer.add(moveShip.kineticShape);
