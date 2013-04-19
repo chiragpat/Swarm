@@ -53,7 +53,7 @@ $$(document).ready(function(){
   // }, 5000);
 
   planet.kineticShape.on('tap click', function() {
-    if (!moving) {
+    if (!moving && selected != planet) {
       if (selected) {
         planet.kineticShape.setFill('#d80c0c');
         moving = planet;
@@ -72,7 +72,7 @@ $$(document).ready(function(){
   });
 
   planet2.kineticShape.on('tap click', function() {
-    if (!moving) {
+    if (!moving && selected != planet2) {
       if (selected) {
         planet2.kineticShape.setFill('#d80c0c');
         moving = planet2;
@@ -91,7 +91,7 @@ $$(document).ready(function(){
   });
 
   planet3.kineticShape.on('tap click', function() {
-    if (!moving) {
+    if (!moving && selected != planet3) {
       if (selected) {
         planet3.kineticShape.setFill('#d80c0c');
         moving = planet3;
