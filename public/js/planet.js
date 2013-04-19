@@ -64,8 +64,6 @@ Planet.prototype = {
     var shipOrbitRotation = 0;
 
     this.layer.add(ship.kineticShape);
-    console.log(this.layer);
-    console.log(ship.kineticShape);
     shipOrbitRotation = 0;
     if (this.__firstShipAdding) {
       shipOrbitRotation = this.ships.length*this.angleBetweenShips+0;

@@ -1,5 +1,5 @@
 $$(document).ready(function(){
-  var moveShip, env, stage, layer, shipLayer, planet, planet2, layer2;
+  var moveShip, env, stage, layer, shipLayer, planet, planet2, layer2, selected = null;
   env = $$.environment();
 
   stage = new Kinetic.Stage({
@@ -52,8 +52,43 @@ $$(document).ready(function(){
   //   planet.moveShipsTo(planet2);
   // }, 5000);
 
+  planet.kineticShape.on('tap click', function() {
+    if (selected) {
+      selected.moveShipsTo(planet);
+      selected.kineticShape.setFill('');
+      planet.kineticShape.setFill('');
+      selected = null;
+    }
+    else {
+      selected = planet;
+      planet.kineticShape.setFill('#4eba53');
+    }
+  });
+
   planet2.kineticShape.on('tap click', function() {
-    planet.moveShipsTo(planet2);
+    if (selected) {
+      selected.moveShipsTo(planet2);
+      selected.kineticShape.setFill('');
+      planet2.kineticShape.setFill('');
+      selected = null;
+    }
+    else {
+      selected = planet2;
+      planet2.kineticShape.setFill('#4eba53');
+    }
+  });
+
+  planet3.kineticShape.on('tap click', function() {
+    if (selected) {
+      selected.moveShipsTo(planet3);
+      selected.kineticShape.setFill('');
+      planet3.kineticShape.setFill('');
+      selected = null;
+    }
+    else {
+      selected = planet3;
+      planet3.kineticShape.setFill('#4eba53');
+    }
   });
 
   moveShip = new Ship();
