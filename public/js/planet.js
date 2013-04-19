@@ -150,6 +150,10 @@ Planet.prototype = {
 
   moveShipsTo: function(planet, cb) {
     if (planet) {
+      if (this.ships.length === 0) {
+        cb();
+      }
+
       cb = cb || (function(){});
       while (this.ships.length !== 0) {
         var ship = this.ships[0];
