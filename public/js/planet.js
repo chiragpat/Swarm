@@ -64,7 +64,8 @@ Planet.prototype = {
     var shipOrbitRotation = 0;
 
     this.layer.add(ship.kineticShape);
-
+    console.log(this.layer);
+    console.log(ship.kineticShape);
     shipOrbitRotation = 0;
     if (this.__firstShipAdding) {
       shipOrbitRotation = this.ships.length*this.angleBetweenShips+0;
@@ -120,7 +121,6 @@ Planet.prototype = {
     var j = 0;
     this.anim = new Kinetic.Animation(function(frame) {
       var angleDiff = frame.timeDiff * self.angularSpeed / 1000;
-      console.log(self.ships.length);
       for (var i = 0; i < self.ships.length; i++) {
         var ship = self.ships[i];
         ship.kineticShape.rotate(-2*angleDiff);
@@ -150,6 +150,17 @@ Planet.prototype = {
   },
 
   moveShipsTo: function(planet) {
-
+    if (planet) {
+      while (this.ships.length !== 0) {
+        var ship = this.ships[0];
+        this.ships.splice(0,1);
+        planet.addNewShip(new Ship({
+          x: ship.x,
+          y: ship.y,
+          rotationRadius: 0
+        }));
+        ship.kineticShape.destroy();
+      }
+    }
   }
 };

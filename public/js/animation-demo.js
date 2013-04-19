@@ -35,18 +35,26 @@ $$(document).ready(function(){
   });
 
   var j = 0;
-  var interval = setInterval(function(){
-    if (j > 11) {
-      clearInterval(interval);
-    }
-    planet.addNewShip(new Ship({
-      x: Math.floor(Math.random()*stage.getWidth()),
-      y: Math.floor(Math.random()*stage.getHeight()),
-      rotationRadius: 0
-    }));
-    // planet.addNewShip();
-    j++;
-  }, 5000);
+  // var interval = setInterval(function(){
+  //   if (j > 11) {
+  //     clearInterval(interval);
+  //   }
+  //   planet.addNewShip(new Ship({
+  //     x: Math.floor(Math.random()*stage.getWidth()),
+  //     y: Math.floor(Math.random()*stage.getHeight()),
+  //     rotationRadius: 0
+  //   }));
+  //   // planet.addNewShip();
+  //   j++;
+  // }, 5000);
+  // 
+  // setTimeout(function(){
+  //   planet.moveShipsTo(planet2);
+  // }, 5000);
+
+  planet2.kineticShape.on('tap click', function() {
+    planet.moveShipsTo(planet2);
+  });
 
   moveShip = new Ship();
   shipLayer.add(moveShip.kineticShape);
