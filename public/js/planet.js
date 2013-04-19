@@ -136,6 +136,7 @@ Planet.prototype = {
       this.__stopAnim--;
     }
     if (this.__stopAnim === 0 && this.anim) {
+      this.kineticShape.setFill('');
       this.anim.start();
     }
   },
@@ -147,16 +148,26 @@ Planet.prototype = {
     }
   },
 
-  moveShipsTo: function(planet) {
+  moveShipsTo: function(planet, cb) {
     if (planet) {
+      cb = cb || (function(){});
       while (this.ships.length !== 0) {
         var ship = this.ships[0];
         this.ships.splice(0,1);
-        planet.addNewShip(new Ship({
-          x: ship.x,
-          y: ship.y,
-          rotationRadius: 0
-        }));
+        if (this.ships.length === 1){
+          planet.addNewShip(new Ship({
+            x: ship.x,
+            y: ship.y,
+            rotationRadius: 0
+          }), cb);
+        }
+        else {
+          planet.addNewShip(new Ship({
+            x: ship.x,
+            y: ship.y,
+            rotationRadius: 0
+          }));
+        }
         ship.kineticShape.destroy();
       }
     }

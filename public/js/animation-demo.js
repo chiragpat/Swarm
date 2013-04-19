@@ -1,5 +1,5 @@
 $$(document).ready(function(){
-  var moveShip, env, stage, layer, shipLayer, planet, planet2, layer2, selected = null;
+  var moveShip, env, stage, layer, shipLayer, planet, planet2, layer2, selected = null, moving = null;
   env = $$.environment();
 
   stage = new Kinetic.Stage({
@@ -53,41 +53,59 @@ $$(document).ready(function(){
   // }, 5000);
 
   planet.kineticShape.on('tap click', function() {
-    if (selected) {
-      selected.moveShipsTo(planet);
-      selected.kineticShape.setFill('');
-      planet.kineticShape.setFill('');
-      selected = null;
-    }
-    else {
-      selected = planet;
-      planet.kineticShape.setFill('#4eba53');
+    if (!moving) {
+      if (selected) {
+        planet.kineticShape.setFill('#d80c0c');
+        moving = planet;
+        selected.moveShipsTo(planet, function(){
+          selected.kineticShape.setFill('');
+          planet.kineticShape.setFill('');
+          selected = null;
+          moving = null;
+        });
+      }
+      else {
+        selected = planet;
+        planet.kineticShape.setFill('#4eba53');
+      }
     }
   });
 
   planet2.kineticShape.on('tap click', function() {
-    if (selected) {
-      selected.moveShipsTo(planet2);
-      selected.kineticShape.setFill('');
-      planet2.kineticShape.setFill('');
-      selected = null;
-    }
-    else {
-      selected = planet2;
-      planet2.kineticShape.setFill('#4eba53');
+    if (!moving) {
+      if (selected) {
+        planet2.kineticShape.setFill('#d80c0c');
+        moving = planet2;
+        selected.moveShipsTo(planet2, function(){
+          selected.kineticShape.setFill('');
+          planet2.kineticShape.setFill('');
+          selected = null;
+          moving = null;
+        });
+      }
+      else {
+        selected = planet2;
+        planet2.kineticShape.setFill('#4eba53');
+      }
     }
   });
 
   planet3.kineticShape.on('tap click', function() {
-    if (selected) {
-      selected.moveShipsTo(planet3);
-      selected.kineticShape.setFill('');
-      planet3.kineticShape.setFill('');
-      selected = null;
-    }
-    else {
-      selected = planet3;
-      planet3.kineticShape.setFill('#4eba53');
+    if (!moving) {
+      if (selected) {
+        planet3.kineticShape.setFill('#d80c0c');
+        moving = planet3;
+        selected.moveShipsTo(planet3, function(){
+          selected.kineticShape.setFill('');
+          planet3.kineticShape.setFill('');
+          selected = null;
+          moving = null;
+        });
+      }
+      else {
+        selected = planet3;
+        planet3.kineticShape.setFill('#4eba53');
+      }
     }
   });
 
