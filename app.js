@@ -47,8 +47,8 @@ app.post('/register', players.register);
 app.get('/logout', players.logout);
 app.get('/home', players.home);
 
-app.get('/game/create', game.create);
-app.get('/play', game.play);
+app.get('/game/create', games.create);
+app.get('/play', games.play);
 
 
 app.get('/animation-demo', function(req, res){
