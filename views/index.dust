@@ -37,6 +37,6 @@
 {/body}
 
 {<script}
-<script src='js/ship.js'></script>
-<script src='js/index.js'></script>
+<script src='/js/ship.js'></script>
+<script src='/js/index.js'></script>
 {/script}
