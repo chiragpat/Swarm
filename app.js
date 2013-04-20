@@ -6,6 +6,7 @@
 var express = require('express'),
     routes = require('./lib/routes'),
     players = require('./lib/routes/players'),
+    games = require('./lib/routes/games'),
     http = require('http'),
     path = require('path'),
     dust = require('consolidate').dust,
@@ -45,6 +46,9 @@ app.post('/login', players.login);
 app.post('/register', players.register);
 app.get('/logout', players.logout);
 app.get('/home', players.home);
+
+app.get('/game/create', game.create);
+
 
 app.get('/animation-demo', function(req, res){
   res.render('animation-demo');
