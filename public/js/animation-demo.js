@@ -1,5 +1,5 @@
 $$(document).ready(function(){
-  var moveShip, env, stage, layer, shipLayer, planet, planet2, layer2, selected = null, moving = null;
+  var moveShip, env, stage, layer, shipLayer, planet, planet2, planet3, planet4, layer2, layer3, layer4;
   env = $$.environment();
 
   stage = new Kinetic.Stage({
@@ -11,6 +11,7 @@ $$(document).ready(function(){
   layer = new Kinetic.Layer();
   layer2 = new Kinetic.Layer();
   layer3 = new Kinetic.Layer();
+  layer4 = new Kinetic.Layer();
   shipLayer = new Kinetic.Layer();
 
   planet = new Planet({
@@ -34,79 +35,11 @@ $$(document).ready(function(){
     layer: layer3
   });
 
-  var j = 0;
-  // var interval = setInterval(function(){
-  //   if (j > 11) {
-  //     clearInterval(interval);
-  //   }
-  //   planet.addNewShip(new Ship({
-  //     x: Math.floor(Math.random()*stage.getWidth()),
-  //     y: Math.floor(Math.random()*stage.getHeight()),
-  //     rotationRadius: 0
-  //   }));
-  //   // planet.addNewShip();
-  //   j++;
-  // }, 5000);
-  // 
-  // setTimeout(function(){
-  //   planet.moveShipsTo(planet2);
-  // }, 5000);
-
-  planet.kineticShape.on('tap click', function() {
-    if (!moving && selected != planet) {
-      if (selected) {
-        planet.kineticShape.setFill('#d80c0c');
-        moving = planet;
-        selected.moveShipsTo(planet, function(){
-          selected.kineticShape.setFill('');
-          planet.kineticShape.setFill('');
-          selected = null;
-          moving = null;
-        });
-      }
-      else {
-        selected = planet;
-        planet.kineticShape.setFill('#4eba53');
-      }
-    }
-  });
-
-  planet2.kineticShape.on('tap click', function() {
-    if (!moving && selected != planet2) {
-      if (selected) {
-        planet2.kineticShape.setFill('#d80c0c');
-        moving = planet2;
-        selected.moveShipsTo(planet2, function(){
-          selected.kineticShape.setFill('');
-          planet2.kineticShape.setFill('');
-          selected = null;
-          moving = null;
-        });
-      }
-      else {
-        selected = planet2;
-        planet2.kineticShape.setFill('#4eba53');
-      }
-    }
-  });
-
-  planet3.kineticShape.on('tap click', function() {
-    if (!moving && selected != planet3) {
-      if (selected) {
-        planet3.kineticShape.setFill('#d80c0c');
-        moving = planet3;
-        selected.moveShipsTo(planet3, function(){
-          selected.kineticShape.setFill('');
-          planet3.kineticShape.setFill('');
-          selected = null;
-          moving = null;
-        });
-      }
-      else {
-        selected = planet3;
-        planet3.kineticShape.setFill('#4eba53');
-      }
-    }
+  planet4 = new Planet({
+    x: 350,
+    y: 100,
+    numShips: 5,
+    layer: layer4
   });
 
   moveShip = new Ship();
@@ -114,6 +47,7 @@ $$(document).ready(function(){
   stage.add(layer);
   stage.add(layer2);
   stage.add(layer3);
+  stage.add(layer4);
   stage.add(shipLayer);
 
   moveShip.infiniteRandomMove();
