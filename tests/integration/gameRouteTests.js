@@ -32,8 +32,8 @@ describe('Game Routes', function(){
       });
 
       var res = mock_response(function(){
-        ( JSON.parse(res.render_params.players)[0] ).should.equal("tester");
-        ( JSON.parse(res.render_params.planets) ).should.exist;
+        ( res.render_params.players[0] ).should.equal("tester");
+        ( res.render_params.planets ).should.exist;
         done();
       });
 
