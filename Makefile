@@ -10,7 +10,7 @@ test-integration:
 				@NODE_ENV=test ./node_modules/.bin/mocha --reporter $(REPORTER) $(MOCHA_OPTS) ./tests/integration/*.js
 
 test-cov: lib-cov
-	@SWARM_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
+	SWARM_COV=1 $(MAKE) test REPORTER=html-cov > coverage.html
 	@rm -fr lib-cov
 	@open coverage.html
 

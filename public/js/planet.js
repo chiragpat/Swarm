@@ -8,6 +8,7 @@ function Planet(options) {
   this.angleBetweenShips = options.angleBetweenShips || Math.PI/9;
   this.angularSpeed = options.angularSpeed || Math.PI/12;
   this.kineticShape = this.generateKineticShape();
+  this.movingHandler();
   this.ships = [];
   this.__lastShipOrbitRotation = 0,
   this.__stopAnim = 0,
@@ -22,7 +23,35 @@ function Planet(options) {
   }
 }
 
+Planet.selected = null;
+Planet.moving = null;
+
 Planet.prototype = {
+  selected: null,
+  moving: null,
+
+  movingHandler: function(){
+    var self = this;
+    this.kineticShape.on('tap click', function() {
+      if (!Planet.moving) {
+        if (!Planet.selected) {
+          Planet.selected = self;
+          self.kineticShape.setStroke('#4eba53');
+        }
+        else if(Planet.selected != self) {
+          self.kineticShape.setStroke('#d80c0c');
+          Planet.moving = self;
+          Planet.selected.moveShipsTo(self, function(){
+            Planet.selected.kineticShape.setStroke('#000000');
+            self.kineticShape.setStroke('#000000');
+            Planet.selected = null;
+            Planet.moving = null;
+          });
+        }
+      }
+    });
+  },
+
   orbitRadius: function(){
     return 1.5 * this.radius;
   },
