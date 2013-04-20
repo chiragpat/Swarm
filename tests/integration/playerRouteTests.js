@@ -120,6 +120,40 @@ describe('Player Routes', function(){
     });
   });
 
+  describe('GET /home', function(){
+    it('should redirect to landing page if no user is loggedin', function(done){
+      var req = mock_request();
+
+      var res = mock_response(function(){
+        (res.redirect_path).should.equal('/');
+        done();
+      });
+
+      playerRoutes.home(req, res);
+    });
+
+    it('should render the homepage with the appropriate parameters if a user is loggedin', function(done){
+      var req = mock_request(null, {
+        loggedin: true,
+        uname: 'test1',
+        stats: {
+          "wins": 11,
+          "loses": 5
+        }
+      });
+
+      var res = mock_response(function(){
+        (res.view).should.equal('home');
+        (res.render_params.uname).should.equal('test1');
+        (res.render_params.stats.wins).should.equal(11);
+        (res.render_params.stats.loses).should.equal(5);
+        done();
+      });
+
+      playerRoutes.home(req, res);
+    });
+  });
+
   describe('GET /logout', function(){
     it('should reset the session object to logout player and redirects to root', function(done){
       var req = mock_request(null, {loggedin: true, uname: 'test1'});

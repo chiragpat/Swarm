@@ -1,4 +1,4 @@
-MOCHA_OPTS = --check-leaks
+MOCHA_OPTS = 
 REPORTER = spec
 
 test: test-unit test-integration

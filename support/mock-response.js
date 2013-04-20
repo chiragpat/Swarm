@@ -7,6 +7,8 @@ var MockResponse = function(cb){
     headers: {},
     body: "",
     redirect_path: "",
+    render_params: {},
+    view: "",
 
     writeHead: function(status, headers) {
       this.status = status;
@@ -26,6 +28,12 @@ var MockResponse = function(cb){
 
     redirect: function(path) {
       this.redirect_path = path;
+      cb(this);
+    },
+
+    render: function(view, params) {
+      this.view = view;
+      this.render_params = params;
       cb(this);
     }
   };

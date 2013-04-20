@@ -1,10 +1,6 @@
 var MockRequest = function (body, session) {
-  if (!body) {
-    body = {};
-  }
-  if (!session) {
-    session = {};
-  }
+  body = body || {};
+  session = session || {};
 
   return {
     body: body,
