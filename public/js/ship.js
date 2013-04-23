@@ -4,8 +4,8 @@ function Ship(options) {
   this.y = options.y || 15;
   this.length = options.length || 3;
   this.width = options.width || 3;
-  this.fill = options.fill || 'black';
-  this.stroke = options.stroke || 'black';
+  this.fill = options.color || 'black';
+  this.stroke = options.color || 'black';
   this.strokeWidth = options.strokeWidth || 2;
   this.rotationRadius = options.rotationRadius || 0;
   this.velocity = options.velocity || 200;

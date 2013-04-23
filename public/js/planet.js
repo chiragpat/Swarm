@@ -43,8 +43,8 @@ Planet.prototype = {
           self.kineticShape.setStroke('#d80c0c');
           Planet.moving = self;
           Planet.selected.moveShipsTo(self, function(){
-            Planet.selected.kineticShape.setStroke('#000000');
-            self.kineticShape.setStroke('#000000');
+            Planet.selected.kineticShape.setStroke(Planet.selected.stroke);
+            self.kineticShape.setStroke(self.stroke);
             Planet.selected = null;
             Planet.moving = null;
           });
@@ -73,7 +73,8 @@ Planet.prototype = {
       var tempShip = new Ship({
         x: this.x,
         y: this.y,
-        rotationRadius: this.orbitRadius()
+        rotationRadius: this.orbitRadius(),
+        color: this.stroke
       });
       tempShip.kineticShape.rotate(i*this.angleBetweenShips);
       this.ships.push(tempShip);
@@ -83,6 +84,17 @@ Planet.prototype = {
 
   addNewShip: function(ship, cb) {
     this.stopAnimation();
+
+    if (!this.owner) {
+      this.stroke = ship.stroke;
+
+      for (var i = 0; i < this.ships.length; i++) {
+        this.ships[i].stroke = ship.stroke;
+        this.ships[i].fill = ship.fill;
+        this.ships[i].kineticShape.setStroke(ship.stroke);
+        this.ships[i].kineticShape.setFill(ship.fill);
+      }
+    }
 
     ship = ship || new Ship({
       x: this.x,
@@ -192,6 +204,7 @@ Planet.prototype = {
           planet.addNewShip(new Ship({
             x: ship.x,
             y: ship.y,
+            color: ship.stroke,
             rotationRadius: 0
           }), cb);
         }

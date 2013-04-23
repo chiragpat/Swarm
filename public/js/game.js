@@ -25,6 +25,7 @@ $$(document).ready(function(){
       owner: __planets[i].owner
     });
     console.log("X: "+__planets[i].position.x+" Y: "+__planets[i].position.y);
+    console.log(__planets[i].owner);
     layers.push(layer);
     planets.push(planet);
     stage.add(layer);

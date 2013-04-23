@@ -14,7 +14,8 @@
     "dustjs-linkedin": "1.2.2",
     "mongoose": "3.6.4",
     "mocha": "*",
-    "chai": "1.5.0"
+    "chai": "1.5.0",
+    "underscore": "1.4.4"
   },
   "subdomain": "swarm",
   "engines": {
