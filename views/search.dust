@@ -1,0 +1,38 @@
+{>"layout"/}
+
+{<body}
+<div id="spinner-container">
+</div> 
+<div class="main">
+
+    <h1 class="title" data-slide="1">Swarm</h1>
+    <h3 class="title" data-slide="1">Searching for players..</h3>
+
+</div>
+{/body}
+
+{<script}
+<script src='/js/ship.js'></script>
+<script src='/js/planet.js'></script>
+<script>
+  var env, stage, layer, ships = [], num_ships, i;
+
+  env = $$.environment();
+  stage = new Kinetic.Stage({
+    container: 'spinner-container',
+    width: 50,
+    height: 50
+  });
+
+  layer = new Kinetic.Layer();
+  planet = new Planet({
+    x: 25,
+    y: 25,
+    layer: layer,
+    numShips: 15
+  });
+
+  stage.addLayer(layer);
+  
+</script>
+{/script}
