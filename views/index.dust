@@ -26,10 +26,12 @@
             </div>
 
             <div class="register-container">
-                <input type="text" name="uname" placeholder="username">
-                <input type="password" name="pwd" placeholder="password">
-                <input type="password" name="cpwd" placeholder="verify password">
-                <a href="#" class="register btn">Register</a>
+                <form method="POST">
+                    <input type="text" name="uname" placeholder="username">
+                    <input type="password" name="pwd" placeholder="password">
+                    <input type="password" name="cpwd" placeholder="verify password">
+                    <input type="submit" class="register btn" value="Register">
+                </form>
             </div>
 
         </div>

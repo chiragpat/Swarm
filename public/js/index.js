@@ -57,10 +57,8 @@ $$(document).ready(function(){
     slider.slide(slide_no);
   });
 
-  $$('.login').on('click', function(e){
+  $$('.login-container form').on('submit', function(e){
     e.preventDefault();
-    console.log(e);
-    console.log("Here");
     var $$uname       = $$('.login-container [name="uname"]'),
         $$pwd         = $$('.login-container [name="pwd"]');
 
@@ -80,7 +78,7 @@ $$(document).ready(function(){
     }
   });
 
-  $$('.register').on('tap', function(e) {
+  $$('.register-container form').on('submit', function(e) {
     var $$uname       = $$('.register-container [name="uname"]'),
         $$pwd         = $$('.register-container [name="pwd"]'),
         $$cpwd        = $$('.register-container [name=cpwd]');

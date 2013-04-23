@@ -7,7 +7,6 @@
   <body>
     {+body/}
     <script src='/js/lib/quo.js'></script>
-    <script src='http://code.jquery.com/jquery-latest.js'></script>
     <script src='/js/lib/kinetic.js'></script>
     <script src='/js/lib/swipe.js'></script>
     {+script/}

@@ -1,6 +1,6 @@
 {
   "name": "Swarm",
-  "version": "0.0.1-43",
+  "version": "0.0.1-45",
   "private": true,
   "scripts": {
     "start": "node app.js",
