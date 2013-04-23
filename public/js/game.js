@@ -8,12 +8,21 @@ $$(document).ready(function(){
   });
 
   for (var i = 0; i < __planets.length; i++) {
+    var color = "";
+    if(__planets[i].owner === __uname) {
+      color = "blue";
+    }
+    else if(__planets[i].owner !== "") {
+      color = "red";
+    }
     var layer = new Kinetic.Layer();
     var planet = new Planet({
       x: __planets[i].position.x,
       y: __planets[i].position.y,
       numShips: __planets[i].population,
-      layer: layer
+      layer: layer,
+      color: color,
+      owner: __planets[i].owner
     });
     console.log("X: "+__planets[i].position.x+" Y: "+__planets[i].position.y);
     layers.push(layer);

@@ -3,10 +3,11 @@ function Planet(options) {
   this.x = options.x || 15;
   this.y = options.y || 15;
   this.radius = options.radius || 30;
-  this.stroke = options.stroke || 'black';
+  this.stroke = options.color || 'black';
   this.strokeWidth = options.strokeWidth || 3;
   this.angleBetweenShips = options.angleBetweenShips || Math.PI/9;
   this.angularSpeed = options.angularSpeed || Math.PI/12;
+  this.owner = options.owner || "";
   this.kineticShape = this.generateKineticShape();
   this.movingHandler();
   this.ships = [];
