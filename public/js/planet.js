@@ -7,6 +7,7 @@ function Planet(options) {
   this.strokeWidth = options.strokeWidth || 3;
   this.angleBetweenShips = options.angleBetweenShips || Math.PI/9;
   this.angularSpeed = options.angularSpeed || Math.PI/12;
+  this.shipSize = options.shipSize || 3;
   this.owner = options.owner || "";
   this.kineticShape = this.generateKineticShape();
   this.movingHandler();
@@ -74,7 +75,9 @@ Planet.prototype = {
         x: this.x,
         y: this.y,
         rotationRadius: this.orbitRadius(),
-        color: this.stroke
+        color: this.stroke,
+        length: this.shipSize,
+        width: this.shipSize
       });
       tempShip.kineticShape.rotate(i*this.angleBetweenShips);
       this.ships.push(tempShip);
@@ -94,17 +97,6 @@ Planet.prototype = {
 
   addNewShip: function(ship, cb) {
     this.stopAnimation();
-
-    if (!this.owner) {
-      this.stroke = ship.stroke;
-
-      for (var i = 0; i < this.ships.length; i++) {
-        this.ships[i].stroke = ship.stroke;
-        this.ships[i].fill = ship.fill;
-        this.ships[i].kineticShape.setStroke(ship.stroke);
-        this.ships[i].kineticShape.setFill(ship.fill);
-      }
-    }
 
     ship = ship || new Ship({
       x: this.x,

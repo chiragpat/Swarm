@@ -9,6 +9,7 @@ function Ship(options) {
   this.strokeWidth = options.strokeWidth || 2;
   this.rotationRadius = options.rotationRadius || 0;
   this.velocity = options.velocity || 200;
+  this.owner = options.owner || '';
   this.kineticShape = this.generateKineticShape();
 }
 
@@ -122,7 +123,7 @@ Ship.prototype = {
     this.stopInfiniteMove = true;
   },
 
-  explode: function(cb) { 
+  explode: function(cb) {
     var stage = this.kineticShape.getStage();
     this.explosionLayer = new Kinetic.Layer();
 
