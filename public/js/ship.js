@@ -120,5 +120,53 @@ Ship.prototype = {
 
   setStopInfiniteMove: function(){
     this.stopInfiniteMove = true;
-  }
+  },
+
+  explode: function(cb) { 
+    var stage = this.kineticShape.getStage();
+    this.explosionLayer = new Kinetic.Layer();
+
+    var circle = new Kinetic.Circle({
+      x: this.x,
+      y: this.y,
+      radius: 1,
+      fill: 'black',
+    });
+
+    var circle2 = new Kinetic.Circle({
+      x: this.x,
+      y: this.y,
+      radius: 1,
+      fill: 'white',
+    });
+
+    this.explosionLayer.add(circle);
+    stage.add(this.explosionLayer);
+
+
+    var period = 1500;
+
+    var self = this;
+    
+    var anim = new Kinetic.Animation(function(frame) {
+      var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
+      if(scale > 0.9) {
+        anim.stop();
+        self.explosionLayer.add(circle2);
+        anim2.start();
+      }
+      circle.setScale(scale*7);
+    }, this.explosionLayer);
+
+    var anim2 = new Kinetic.Animation(function(frame) {
+      var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
+      if(scale > 0.9) {
+        anim2.stop();
+        cb();
+      }
+      circle2.setScale(scale*7);
+    }, this.explosionLayer);
+
+    anim.start();
+  },
 };
