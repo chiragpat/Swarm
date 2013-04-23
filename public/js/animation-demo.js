@@ -51,4 +51,9 @@ $$(document).ready(function(){
   stage.add(shipLayer);
 
   moveShip.infiniteRandomMove();
+
+  setInterval(function(){
+    planet.removeShip();
+  }, 1000);
+
 });

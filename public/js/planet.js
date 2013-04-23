@@ -81,6 +81,16 @@ Planet.prototype = {
     this.__lastShipOrbitRotation = this.ships.length*this.angleBetweenShips;
   },
 
+  removeShip: function(cb) {
+    if(this.ships.length) {
+      var ship = this.ships.pop();
+      ship.explode(function(){
+        ship.explosionLayer.destroy();
+        ship.kineticShape.destroy();
+      });
+    }
+  },
+
   addNewShip: function(ship, cb) {
     this.stopAnimation();
 
