@@ -187,7 +187,7 @@ Planet.prototype = {
       while (this.ships.length !== 0) {
         var ship = this.ships[0];
         this.ships.splice(0,1);
-        if (this.ships.length === 1){
+        if (this.ships.length === 0){
           planet.addNewShip(new Ship({
             x: ship.x,
             y: ship.y,

@@ -1,13 +1,14 @@
+var chai         = require('chai'),
+    mongoose     = require('mongoose'),
+    assert       = chai.assert,
+    should       = chai.should(),
+    libpath      = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
+    GameSchema   = require(libpath + '/models/game'),
+    db           = mongoose.createConnection(process.env.SWARM_DB_URL),
+    TestGames    = db.model('TestGame', GameSchema),
+    game1        = new TestGames();
+
 describe('Game Schema', function(){
-  var chai         = require('chai'),
-      mongoose     = require('mongoose'),
-      assert       = chai.assert,
-      should       = chai.should(),
-      libpath      = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
-      GameSchema   = require(libpath + '/models/game'),
-      db           = mongoose.createConnection(process.env.SWARM_DB_URL),
-      TestGames    = db.model('TestGame', GameSchema),
-      game1        = new TestGames();
 
   before(function(done){
     TestGames.remove({}, function(err){

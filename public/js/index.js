@@ -57,7 +57,10 @@ $$(document).ready(function(){
     slider.slide(slide_no);
   });
 
-  $$('.login').on('tap', function(e){
+  $$('.login').on('click', function(e){
+    e.preventDefault();
+    console.log(e);
+    console.log("Here");
     var $$uname       = $$('.login-container [name="uname"]'),
         $$pwd         = $$('.login-container [name="pwd"]');
 
@@ -75,8 +78,6 @@ $$(document).ready(function(){
           }
         });
     }
-
-    e.preventDefault();
   });
 
   $$('.register').on('tap', function(e) {
@@ -109,7 +110,7 @@ $$(document).ready(function(){
   stage = new Kinetic.Stage({
     container: 'moving-ships',
     width: env.screen.width-15,
-    height: env.screen.height
+    height: env.screen.height-15
   });
 
   layer = new Kinetic.Layer();

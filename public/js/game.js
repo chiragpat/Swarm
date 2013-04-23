@@ -10,13 +10,12 @@ $$(document).ready(function(){
   for (var i = 0; i < __planets.length; i++) {
     var layer = new Kinetic.Layer();
     var planet = new Planet({
-      x: __planets[i].position.x * stage.getWidth() * 1 / 25,
-      y: __planets[i].position.y * stage.getHeight() * 1 / 20,
-      numShips: 5,
-      layer: layer,
-      radius: 35
+      x: __planets[i].position.x,
+      y: __planets[i].position.y,
+      numShips: __planets[i].population,
+      layer: layer
     });
-    console.log("X: " + x + " Y: " + y);
+    console.log("X: "+__planets[i].position.x+" Y: "+__planets[i].position.y);
     layers.push(layer);
     planets.push(planet);
     stage.add(layer);

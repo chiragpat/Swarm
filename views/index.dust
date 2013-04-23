@@ -11,9 +11,11 @@
         <div class="swipe-wrap">
 
             <div class="login-container">
+                <form method="POST">
                     <input type="text" name="uname" placeholder="username">
                     <input type="password" name="pwd" placeholder="password">
-                    <a href="#" class="login btn">Login</a>
+                    <input type="submit" class="login btn" value="Login">
+                </form>
             </div>
 
             <div class="index">
