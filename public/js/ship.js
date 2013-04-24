@@ -100,6 +100,8 @@ Ship.prototype = {
           callback: function(){
             self.x = pt.x;
             self.y = pt.y;
+            console.log("here");
+            console.log(options.onFinish);
             options.onFinish.call(self, options);
           }
         });
@@ -126,6 +128,7 @@ Ship.prototype = {
   explode: function(cb) {
     var stage = this.kineticShape.getStage();
     this.explosionLayer = new Kinetic.Layer();
+    cb = cb || (function(){});
 
     var circle = new Kinetic.Circle({
       x: this.x,
@@ -148,7 +151,7 @@ Ship.prototype = {
     var period = 1500;
 
     var self = this;
-    
+
     var anim = new Kinetic.Animation(function(frame) {
       var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
       if(scale > 0.9) {
@@ -163,7 +166,9 @@ Ship.prototype = {
       var scale = Math.sin(frame.time * 2 * Math.PI / period) + 0.001;
       if(scale > 0.9) {
         anim2.stop();
-        cb();
+        self.kineticShape.destroy();
+        self.explosionLayer.destroy();
+        cb.call(self);
       }
       circle2.setScale(scale*7);
     }, this.explosionLayer);

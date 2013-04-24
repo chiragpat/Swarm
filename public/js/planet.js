@@ -88,10 +88,7 @@ Planet.prototype = {
   removeShip: function(cb) {
     if(this.ships.length) {
       var ship = this.ships.pop();
-      ship.explode(function(){
-        ship.explosionLayer.destroy();
-        ship.kineticShape.destroy();
-      });
+      ship.explode();
     }
   },
 

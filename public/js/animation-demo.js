@@ -52,8 +52,44 @@ $$(document).ready(function(){
 
   moveShip.infiniteRandomMove();
 
-  setInterval(function(){
-    planet.removeShip();
+  // setInterval(function(){
+  //   planet.removeShip();
+  // }, 1000);
+
+  setTimeout(function(){
+    var ship = planet.ships.pop();
+    var ship2 = planet2.ships.pop();
+    ship.kineticShape.setPosition(ship.x, ship.y);
+    ship.setRotationRadius(0);
+
+    ship2.kineticShape.setPosition(ship2.x, ship2.y);
+    ship2.setRotationRadius(0);
+
+    var vecS1S2 = {
+      x: ship2.x - ship.x,
+      y: ship2.y - ship.y
+    };
+
+    var magS1S2 = Math.sqrt(vecS1S2.x*vecS1S2.x+vecS1S2.y*vecS1S2.y);
+
+
+    ship2.moveTo({
+      x: (ship2.x+ship.x)/2,
+      y: (ship2.y+ship.y)/2,
+    }, {
+      onFinish: function(){
+        this.explode();
+      }
+    });
+
+    ship.moveTo({
+      x: (ship2.x+ship.x)/2,
+      y: (ship2.y+ship.y)/2,
+    }, {
+      onFinish: function(){
+        this.explode();
+      }
+    });
   }, 1000);
 
 });
