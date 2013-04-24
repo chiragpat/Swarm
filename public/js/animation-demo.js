@@ -57,26 +57,9 @@ $$(document).ready(function(){
   // }, 1000);
 
   setTimeout(function(){
-    var ship = planet.ships.pop();
-    var ship2 = planet2.ships.pop();
-    ship.kineticShape.setPosition(ship.x, ship.y);
-    ship.setRotationRadius(0);
-
-    ship2.kineticShape.setPosition(ship2.x, ship2.y);
-    ship2.setRotationRadius(0);
-
-    var ptToGo = {
-      x: ship.x + 0.75*(ship2.x - ship.x),
-      y: ship.y + 0.75*(ship2.y - ship.y)
-    };
-
-    ship2.moveTo(ptToGo);
-    ship.moveTo(ptToGo, {
-      onFinish: function(){
-        this.explode();
-        ship2.explode();
-      }
-    });
+    var ship = planet3.ships.pop();
+    var ship2 = planet4.ships.pop();
+    ship.attack(ship2);
   }, 1000);
 
 });

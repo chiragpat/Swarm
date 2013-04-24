@@ -100,8 +100,6 @@ Ship.prototype = {
           callback: function(){
             self.x = pt.x;
             self.y = pt.y;
-            console.log("here");
-            console.log(options.onFinish);
             options.onFinish.call(self, options);
           }
         });
@@ -123,6 +121,36 @@ Ship.prototype = {
 
   setStopInfiniteMove: function(){
     this.stopInfiniteMove = true;
+  },
+
+  attack: function(ship, cb) {
+    if (!ship) return;
+    cb = cb || (function(){});
+
+    this.kineticShape.setPosition(this.x, this.y);
+    this.setRotationRadius(0);
+
+    ship.kineticShape.setPosition(ship.x, ship.y);
+    ship.setRotationRadius(0);
+
+    var ptToGo = {
+      x: this.x + 0.75*(ship.x - this.x),
+      y: this.y + 0.75*(ship.y - this.y)
+    };
+
+    var ptToGo2 = {
+      x: this.x + 0.73*(ship.x - this.x),
+      y: this.y + 0.73*(ship.y - this.y)
+    };
+
+    ship.moveTo(ptToGo);
+
+    this.moveTo(ptToGo2, {
+      onFinish: function(){
+        this.explode();
+        ship.explode(cb);
+      }
+    });
   },
 
   explode: function(cb) {

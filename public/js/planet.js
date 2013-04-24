@@ -77,7 +77,8 @@ Planet.prototype = {
         rotationRadius: this.orbitRadius(),
         color: this.stroke,
         length: this.shipSize,
-        width: this.shipSize
+        width: this.shipSize,
+        owner: this.owner
       });
       tempShip.kineticShape.rotate(i*this.angleBetweenShips);
       this.ships.push(tempShip);
@@ -94,6 +95,13 @@ Planet.prototype = {
 
   addNewShip: function(ship, cb) {
     this.stopAnimation();
+
+    console.log(ship.owner);
+    if (ship.owner != this.owner) {
+      this.owner = ship.owner;
+      this.stroke = ship.stroke;
+      this.kineticShape.setStroke(ship.stroke);
+    }
 
     ship = ship || new Ship({
       x: this.x,
@@ -192,31 +200,50 @@ Planet.prototype = {
   },
 
   moveShipsTo: function(planet, cb) {
-    if (planet) {
-      if (this.ships.length === 0) {
-        cb();
-      }
+    var temp_cb = null, attackingShip, shipToAttack, ship;
+    cb = cb || (function(){});
+    if (!planet) return;
+    if (!this.ships.length) return cb();
 
-      cb = cb || (function(){});
+    if (this.owner == planet.owner) {
       while (this.ships.length !== 0) {
-        var ship = this.ships[0];
-        this.ships.splice(0,1);
-        if (this.ships.length === 0){
-          planet.addNewShip(new Ship({
-            x: ship.x,
-            y: ship.y,
-            color: ship.stroke,
-            rotationRadius: 0
-          }), cb);
+        ship = this.ships[0];
+        this.ships.splice(0, 1);
+        temp_cb = (this.ships.length) ? null : cb;
+        ship.kineticShape.remove();
+        ship.setRotationRadius(0);
+        ship.kineticShape.setRotation(0);
+        ship.kineticShape.setPosition(ship.x, ship.y);
+        planet.addNewShip(ship, temp_cb);
+      }
+    }
+    else {
+      // Attacking planet wins
+      if (this.ships.length > planet.ships.length) {
+        while (planet.ships.length > 0) {
+          attackingShip = this.ships.pop();
+          shipToAttack  = planet.ships.pop();
+          attackingShip.attack(shipToAttack);
         }
-        else {
-          planet.addNewShip(new Ship({
-            x: ship.x,
-            y: ship.y,
-            rotationRadius: 0
-          }));
+
+        while (this.ships.length) {
+          ship = this.ships[0];
+          this.ships.splice(0, 1);
+          temp_cb = (this.ships.length) ? null : cb;
+          ship.kineticShape.remove();
+          ship.setRotationRadius(0);
+          ship.kineticShape.setRotation(0)  ;
+          ship.kineticShape.setPosition(ship.x, ship.y);
+          planet.addNewShip(ship, temp_cb);
         }
-        ship.kineticShape.destroy();
+      }
+      else {
+        while (this.ships.length > 0) {
+          attackingShip = this.ships.pop();
+          shipToAttack  = planet.ships.pop();
+          attackingShip.attack(shipToAttack);
+        }
+        cb();
       }
     }
   }
