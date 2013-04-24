@@ -100,7 +100,7 @@ Planet.prototype = {
     if (ship.owner != this.owner) {
       this.owner = ship.owner;
       this.stroke = ship.stroke;
-      this.kineticShape.setStroke(ship.stroke);
+      // this.kineticShape.setStroke(ship.stroke);
     }
 
     ship = ship || new Ship({
