@@ -138,6 +138,8 @@ Planet.prototype = {
         ship.setY(self.y);
         ship.kineticShape = ship.generateKineticShape();
         ship.kineticShape.setRotation(shipOrbitRotation);
+        ship.setX(orbitLocation.x);
+        ship.setY(orbitLocation.y);
         self.layer.add(ship.kineticShape);
         self.layer.draw();
         self.startAnimation();

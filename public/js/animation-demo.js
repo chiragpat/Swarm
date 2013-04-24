@@ -65,29 +65,16 @@ $$(document).ready(function(){
     ship2.kineticShape.setPosition(ship2.x, ship2.y);
     ship2.setRotationRadius(0);
 
-    var vecS1S2 = {
-      x: ship2.x - ship.x,
-      y: ship2.y - ship.y
+    var ptToGo = {
+      x: ship.x + 0.75*(ship2.x - ship.x),
+      y: ship.y + 0.75*(ship2.y - ship.y)
     };
 
-    var magS1S2 = Math.sqrt(vecS1S2.x*vecS1S2.x+vecS1S2.y*vecS1S2.y);
-
-
-    ship2.moveTo({
-      x: (ship2.x+ship.x)/2,
-      y: (ship2.y+ship.y)/2,
-    }, {
+    ship2.moveTo(ptToGo);
+    ship.moveTo(ptToGo, {
       onFinish: function(){
         this.explode();
-      }
-    });
-
-    ship.moveTo({
-      x: (ship2.x+ship.x)/2,
-      y: (ship2.y+ship.y)/2,
-    }, {
-      onFinish: function(){
-        this.explode();
+        ship2.explode();
       }
     });
   }, 1000);
