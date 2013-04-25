@@ -31,4 +31,13 @@ $$(document).ready(function(){
     stage.add(layer);
   }
 
+  setInterval(function(){
+    for (var i = 0; i < planets.length; i++) {
+      if(planets[i].owner !== "") {
+        console.log(planets[i].owner);
+        planets[i].addNewShip();
+      }
+    }
+  }, 1000);
+
 });

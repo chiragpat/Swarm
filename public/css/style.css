@@ -384,10 +384,10 @@ body {
   padding: 0px 50px 0px;
   font-size: 100%;
 }
-
+/*
 a {
   color: #00B7FF;
-}
+}*/
 
 .main {
     width: 60%;
@@ -506,6 +506,20 @@ div.error {
 #game-container {
   width: 800px;
   height: 600px;
+  margin: 5px auto 0;
+}
+
+.game-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 20px 20px 0 0;
+  font-weight: bold;
+  font-size: 2em;
+}
+
+#spinner-container {
+  width: 300px;
   margin: 5px auto 0;
 }
 

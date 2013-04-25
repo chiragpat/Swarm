@@ -1,6 +1,7 @@
 {>"layout"/}
 
 {<body}
+<div class="game-menu"><a href="#">\\ pause</a> <br> <a href="#">\\ quit</a></div>
 <div id="game-container"></div>
 {/body}
 
