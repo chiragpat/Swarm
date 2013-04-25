@@ -98,7 +98,7 @@ Planet.prototype = {
   addNewShip: function(ship, cb) {
     this.stopAnimation();
 
-    if (ship.owner != this.owner) {
+    if (ship && ship.owner != this.owner) {
       this.owner = ship.owner;
       this.stroke = ship.stroke;
     }
