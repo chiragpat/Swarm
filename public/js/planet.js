@@ -106,7 +106,9 @@ Planet.prototype = {
     ship = ship || new Ship({
       x: this.x,
       y: this.y,
-      rotationRadius: 0
+      rotationRadius: 0,
+      owner: this.owner,
+      color: this.stroke
     });
 
     cb = cb || (function(){});
