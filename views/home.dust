@@ -9,6 +9,7 @@
     </div>
     <div class="clear"></div>
     <a href="/play" class="btn">Play</a>
+    <a href="/practice" class="btn">Practice</a>
     <a href="/logout" class="btn">Logout</a>
 </div>
 {/body}
