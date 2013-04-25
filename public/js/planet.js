@@ -27,6 +27,7 @@ function Planet(options) {
 
 Planet.selected = null;
 Planet.moving = null;
+Planet.addingShip = false;
 
 Planet.prototype = {
   selected: null,
@@ -35,7 +36,7 @@ Planet.prototype = {
   movingHandler: function(){
     var self = this;
     this.kineticShape.on('tap click', function() {
-      if (!Planet.moving ) {
+      if (!Planet.moving && !Planet.addingShip) {
         if (!Planet.selected) {
           if (!__uname || __uname === self.owner) {
             Planet.selected = self;
@@ -98,6 +99,7 @@ Planet.prototype = {
   addNewShip: function(ship, cb) {
     this.stopAnimation();
 
+    Planet.addingShip = true;
     if (ship && ship.owner != this.owner) {
       this.owner = ship.owner;
       this.stroke = ship.stroke;
@@ -154,6 +156,7 @@ Planet.prototype = {
         self.layer.draw();
         self.startAnimation();
         self.__firstShipAdding = false;
+        Planet.addingShip = false;
         cb(ship);
       }
     });
