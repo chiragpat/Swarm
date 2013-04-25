@@ -2,6 +2,7 @@ function Planet(options) {
   options = options || {};
   this.x = options.x || 15;
   this.y = options.y || 15;
+  this.cap = options.cap || 15;
   this.radius = options.radius || 30;
   this.stroke = options.color || 'black';
   this.strokeWidth = options.strokeWidth || 3;
