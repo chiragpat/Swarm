@@ -36,7 +36,7 @@ Planet.prototype = {
     var self = this;
     this.kineticShape.on('tap click', function() {
       if (!Planet.moving ) {
-        if (!Planet.selected && __uname) {
+        if (!Planet.selected) {
           if (__uname === self.owner) {
             Planet.selected = self;
             self.kineticShape.setStroke('#4eba53');

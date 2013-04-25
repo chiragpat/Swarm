@@ -2,6 +2,8 @@ $$(document).ready(function(){
   var moveShip, env, stage, layer, shipLayer, planet, planet2, planet3, planet4, layer2, layer3, layer4;
   env = $$.environment();
 
+  window.__uname = '';
+
   stage = new Kinetic.Stage({
     container: 'container',
     width: env.screen.width-100,
