@@ -152,7 +152,7 @@ Planet.prototype = {
         self.layer.draw();
         self.startAnimation();
         self.__firstShipAdding = false;
-        cb();
+        cb(ship);
       }
     });
   },
