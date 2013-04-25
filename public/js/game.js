@@ -37,7 +37,7 @@ $$(document).ready(function(){
         planets[i].addNewShip();
       }
     }
-  }, 5000);
+  }, 10000);
 
   socket.on('connect', function(data){
     console.log('Socket Connected');
