@@ -206,55 +206,30 @@ Planet.prototype = {
     if (!this.ships.length) return cb();
 
     if (this.owner == planet.owner) {
-      while (this.ships.length !== 0) {
-        ship = this.ships[0];
-        this.ships.splice(0, 1);
-        temp_cb = (this.ships.length) ? null : cb;
-        planet.addNewShip(new Ship({
-          x: ship.x,
-          y: ship.y,
-          rotationRadius: 0,
-          color: ship.stroke,
-          owner: ship.owner
-        }), temp_cb);
-        ship.kineticShape.destroy();
-      }
+      this.__moveAllShipsTo(planet, cb);
     }
     else {
-      // Attacking planet wins
-      if (this.ships.length > planet.ships.length) {
-        while (planet.ships.length > 0) {
-          attackingShip = this.ships.pop();
-          shipToAttack  = planet.ships.pop();
+      while (planet.ships.length > 0 && this.ships.length > 0) {
+        attackingShip = this.ships.pop();
+        shipToAttack  = planet.ships.pop();
+        if (!this.ships.length || !planet.ships.length) {
+          attackingShip.attack(shipToAttack, cb);
+        }
+        else {
           attackingShip.attack(shipToAttack);
         }
+      }
+      this.__moveAllShipsTo(planet);
+    }
+  },
 
-        while (this.ships.length) {
-          ship = this.ships[0];
-          this.ships.splice(0, 1);
-          temp_cb = (this.ships.length) ? null : cb;
-          planet.addNewShip(new Ship({
-            x: ship.x,
-            y: ship.y,
-            rotationRadius: 0,
-            color: ship.stroke,
-            owner: ship.owner
-          }), temp_cb);
-          ship.kineticShape.destroy();
-        }
-      }
-      else {
-        while (this.ships.length > 0) {
-          attackingShip = this.ships.pop();
-          shipToAttack  = planet.ships.pop();
-          if (!this.ships.length) {
-            attackingShip.attack(shipToAttack, cb);
-          }
-          else {
-            attackingShip.attack(shipToAttack);
-          }
-        }
-      }
+  __moveAllShipsTo: function(planet, cb) {
+    cb = cb || (function(){});
+    while (this.ships.length !== 0) {
+      ship = this.ships[0];
+      this.ships.splice(0, 1);
+      temp_cb = (this.ships.length) ? null : cb;
+      ship.__moveToPlanet(planet, temp_cb);
     }
   }
 };
