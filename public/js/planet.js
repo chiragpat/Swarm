@@ -212,12 +212,8 @@ Planet.prototype = {
       while (planet.ships.length > 0 && this.ships.length > 0) {
         attackingShip = this.ships.pop();
         shipToAttack  = planet.ships.pop();
-        if (!this.ships.length || !planet.ships.length) {
-          attackingShip.attack(shipToAttack, cb);
-        }
-        else {
-          attackingShip.attack(shipToAttack);
-        }
+        temp_cb = (!this.ships.length || !planet.ships.length) ? cb : null;
+        attackingShip.attack(shipToAttack, temp_cb);
       }
       this.__moveAllShipsTo(planet);
     }
