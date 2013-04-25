@@ -128,9 +128,11 @@ Ship.prototype = {
     cb = cb || (function(){});
 
     this.kineticShape.setPosition(this.x, this.y);
+    this.kineticShape.setRotation(0);
     this.setRotationRadius(0);
 
     ship.kineticShape.setPosition(ship.x, ship.y);
+    ship.kineticShape.setRotation(0);
     ship.setRotationRadius(0);
 
     var ptToGo = {

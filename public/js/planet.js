@@ -37,7 +37,7 @@ Planet.prototype = {
     this.kineticShape.on('tap click', function() {
       if (!Planet.moving ) {
         if (!Planet.selected) {
-          if (__uname === self.owner) {
+          if (!__uname || __uname === self.owner) {
             Planet.selected = self;
             self.kineticShape.setStroke('#4eba53');
           }
@@ -98,11 +98,9 @@ Planet.prototype = {
   addNewShip: function(ship, cb) {
     this.stopAnimation();
 
-    console.log(ship.owner);
     if (ship.owner != this.owner) {
       this.owner = ship.owner;
       this.stroke = ship.stroke;
-      // this.kineticShape.setStroke(ship.stroke);
     }
 
     ship = ship || new Ship({
@@ -249,9 +247,13 @@ Planet.prototype = {
         while (this.ships.length > 0) {
           attackingShip = this.ships.pop();
           shipToAttack  = planet.ships.pop();
-          attackingShip.attack(shipToAttack);
+          if (!this.ships.length) {
+            attackingShip.attack(shipToAttack, cb);
+          }
+          else {
+            attackingShip.attack(shipToAttack);
+          }
         }
-        cb();
       }
     }
   }
