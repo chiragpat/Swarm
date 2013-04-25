@@ -123,6 +123,17 @@ Ship.prototype = {
     this.stopInfiniteMove = true;
   },
 
+  __moveToPlanet: function(planet, cb){
+    planet.addNewShip(new Ship({
+      x: this.x,
+      y: this.y,
+      rotationRadius: 0,
+      color: this.stroke,
+      owner: this.owner
+    }), cb);
+    this.kineticShape.destroy();
+  },
+
   attack: function(ship, cb) {
     if (!ship) return;
     cb = cb || (function(){});
