@@ -35,10 +35,12 @@ Planet.prototype = {
   movingHandler: function(){
     var self = this;
     this.kineticShape.on('tap click', function() {
-      if (!Planet.moving) {
-        if (!Planet.selected) {
-          Planet.selected = self;
-          self.kineticShape.setStroke('#4eba53');
+      if (!Planet.moving ) {
+        if (!Planet.selected && __uname) {
+          if (__uname === self.owner) {
+            Planet.selected = self;
+            self.kineticShape.setStroke('#4eba53');
+          }
         }
         else if(Planet.selected != self) {
           self.kineticShape.setStroke('#d80c0c');
@@ -210,11 +212,14 @@ Planet.prototype = {
         ship = this.ships[0];
         this.ships.splice(0, 1);
         temp_cb = (this.ships.length) ? null : cb;
-        ship.kineticShape.remove();
-        ship.setRotationRadius(0);
-        ship.kineticShape.setRotation(0);
-        ship.kineticShape.setPosition(ship.x, ship.y);
-        planet.addNewShip(ship, temp_cb);
+        planet.addNewShip(new Ship({
+          x: ship.x,
+          y: ship.y,
+          rotationRadius: 0,
+          color: ship.stroke,
+          owner: ship.owner
+        }), temp_cb);
+        ship.kineticShape.destroy();
       }
     }
     else {
@@ -230,11 +235,14 @@ Planet.prototype = {
           ship = this.ships[0];
           this.ships.splice(0, 1);
           temp_cb = (this.ships.length) ? null : cb;
-          ship.kineticShape.remove();
-          ship.setRotationRadius(0);
-          ship.kineticShape.setRotation(0)  ;
-          ship.kineticShape.setPosition(ship.x, ship.y);
-          planet.addNewShip(ship, temp_cb);
+          planet.addNewShip(new Ship({
+            x: ship.x,
+            y: ship.y,
+            rotationRadius: 0,
+            color: ship.stroke,
+            owner: ship.owner
+          }), temp_cb);
+          ship.kineticShape.destroy();
         }
       }
       else {
