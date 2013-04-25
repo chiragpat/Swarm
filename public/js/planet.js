@@ -202,7 +202,7 @@ Planet.prototype = {
   },
 
   moveShipsTo: function(planet, cb) {
-    var temp_cb = null, attackingShip, shipToAttack, ship;
+    var temp_cb = null, attackingShip, shipToAttack, ship, move_cb = null;
     cb = cb || (function(){});
     if (!planet) return;
     if (!this.ships.length) return cb();
@@ -211,13 +211,16 @@ Planet.prototype = {
       this.__moveAllShipsTo(planet, cb);
     }
     else {
+      if (!planet.ships.length) {
+        move_cb = cb;
+      }
       while (planet.ships.length > 0 && this.ships.length > 0) {
         attackingShip = this.ships.pop();
         shipToAttack  = planet.ships.pop();
         temp_cb = (!this.ships.length || !planet.ships.length) ? cb : null;
         attackingShip.attack(shipToAttack, temp_cb);
       }
-      this.__moveAllShipsTo(planet);
+      this.__moveAllShipsTo(planet, move_cb);
     }
   },
 
