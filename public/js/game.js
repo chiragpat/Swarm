@@ -1,6 +1,8 @@
 $$(document).ready(function(){
   var stage, layers = [], planets = [], env;
 
+  var socket = io.connect();
+
   stage = new Kinetic.Stage({
     container: 'game-container',
     width: 800,
@@ -8,12 +10,12 @@ $$(document).ready(function(){
   });
 
   for (var i = 0; i < __planets.length; i++) {
-    var color = "";
+    var color = '';
     if(__planets[i].owner === __uname) {
-      color = "blue";
+      color = 'blue';
     }
     else if(__planets[i].owner !== "") {
-      color = "red";
+      color = 'red';
     }
     var layer = new Kinetic.Layer();
     var planet = new Planet({
@@ -24,8 +26,6 @@ $$(document).ready(function(){
       color: color,
       owner: __planets[i].owner
     });
-    console.log("X: "+__planets[i].position.x+" Y: "+__planets[i].position.y);
-    console.log(__planets[i].owner);
     layers.push(layer);
     planets.push(planet);
     stage.add(layer);
@@ -39,4 +39,7 @@ $$(document).ready(function(){
     }
   }, 5000);
 
+  socket.on('connect', function(data){
+    console.log('Socket Connected');
+  });
 });
