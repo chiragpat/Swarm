@@ -95,7 +95,13 @@ Planet.prototype = {
     }
   },
 
+  isFull: function() {
+    return this.ships.length >= 18;
+  },
+
   addNewShip: function(ship, cb) {
+    if(this.isFull()) return;
+
     this.stopAnimation();
 
     if (ship && ship.owner != this.owner) {
