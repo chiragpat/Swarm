@@ -2,6 +2,7 @@ function Planet(options) {
   options = options || {};
   this.x = options.x || 15;
   this.y = options.y || 15;
+  this.cap = options.cap || 15;
   this.radius = options.radius || 30;
   this.stroke = options.color || 'black';
   this.strokeWidth = options.strokeWidth || 3;
@@ -27,6 +28,7 @@ function Planet(options) {
 
 Planet.selected = null;
 Planet.moving = null;
+Planet.addingShip = false;
 
 Planet.prototype = {
   selected: null,
@@ -35,7 +37,7 @@ Planet.prototype = {
   movingHandler: function(){
     var self = this;
     this.kineticShape.on('tap click', function() {
-      if (!Planet.moving ) {
+      if (!Planet.moving && !Planet.addingShip) {
         if (!Planet.selected) {
           if (!__uname || __uname === self.owner) {
             Planet.selected = self;
@@ -104,10 +106,14 @@ Planet.prototype = {
 
     this.stopAnimation();
 
+    Planet.addingShip = true;
     if (ship && ship.owner != this.owner) {
       this.owner = ship.owner;
       this.stroke = ship.stroke;
     }
+
+    var thetaDur = null;
+    if (!ship) thetaDur = 0.01;
 
     ship = ship || new Ship({
       x: this.x,
@@ -146,6 +152,7 @@ Planet.prototype = {
       x: orbitLocation.x,
       y: orbitLocation.y
     }, {
+      thetaDur: thetaDur,
       velocity: 300,
       onFinish: function(){
         ship.kineticShape.destroy();
@@ -160,6 +167,7 @@ Planet.prototype = {
         self.layer.draw();
         self.startAnimation();
         self.__firstShipAdding = false;
+        Planet.addingShip = false;
         cb(ship);
       }
     });
@@ -208,7 +216,7 @@ Planet.prototype = {
   },
 
   moveShipsTo: function(planet, cb) {
-    var temp_cb = null, attackingShip, shipToAttack, ship;
+    var temp_cb = null, attackingShip, shipToAttack, ship, move_cb = null;
     cb = cb || (function(){});
     if (!planet) return;
     if (!this.ships.length) return cb();
@@ -217,13 +225,16 @@ Planet.prototype = {
       this.__moveAllShipsTo(planet, cb);
     }
     else {
+      if (!planet.ships.length) {
+        move_cb = cb;
+      }
       while (planet.ships.length > 0 && this.ships.length > 0) {
         attackingShip = this.ships.pop();
         shipToAttack  = planet.ships.pop();
         temp_cb = (!this.ships.length || !planet.ships.length) ? cb : null;
         attackingShip.attack(shipToAttack, temp_cb);
       }
-      this.__moveAllShipsTo(planet);
+      this.__moveAllShipsTo(planet, move_cb);
     }
   },
 

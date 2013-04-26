@@ -2,37 +2,18 @@
 
 {<body}
 <div class="main">
-
-    <h1 class="title" data-slide="1">Swarm</h1>
-    <h3 class="title" data-slide="1">Searching for players..</h3>
+    <h1 class="title">Swarm</h1>
+    <h3 class="title">Searching for players..</h3>
 </div>
-    <div id="spinner-container"></div> 
+<div id="spinner-container"></div> 
 {/body}
 
 {<script}
+<script>
+  __uname = '{uname}';
+</script>
+<script src="/socket.io/socket.io.js"></script>
 <script src='/js/ship.js'></script>
 <script src='/js/planet.js'></script>
-<script>
-  var env, stage, layer, ships = [], num_ships, i;
-
-  env = $$.environment();
-  stage = new Kinetic.Stage({
-    container: 'spinner-container',
-    width: 300,
-    height: 300
-  });
-
-  layer = new Kinetic.Layer();
-  planet = new Planet({
-    x: 150,
-    y: 150,
-    layer: layer,
-    numShips: 20,
-    radius: 70,
-    shipSize: 5
-  });
-
-  stage.add(layer);
-  
-</script>
+<script src='/js/search.js'></script>
 {/script}

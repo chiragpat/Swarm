@@ -49,8 +49,9 @@ app.get('/logout', players.logout);
 app.get('/home', players.home);
 
 app.get('/search', games.search);
-app.get('/game/create', games.create);
 app.get('/play', games.play);
+app.get('/practice', games.practice);
+app.get('/game/:id', games.renderGame);
 
 
 app.get('/animation-demo', function(req, res){

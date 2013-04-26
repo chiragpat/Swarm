@@ -24,7 +24,8 @@ $$(document).ready(function(){
       numShips: __planets[i].population,
       layer: layer,
       color: color,
-      owner: __planets[i].owner
+      owner: __planets[i].owner,
+      cap: __planets[i].cap
     });
     layers.push(layer);
     planets.push(planet);
@@ -33,11 +34,11 @@ $$(document).ready(function(){
 
   setInterval(function(){
     for (var i = 0; i < planets.length; i++) {
-      if(planets[i].owner !== "") {
+      if(planets[i].owner !== "" && planets[i].ships.length < planets[i].cap) {
         planets[i].addNewShip();
       }
     }
-  }, 5000);
+  }, 7000);
 
   socket.on('connect', function(data){
     console.log('Socket Connected');
