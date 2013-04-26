@@ -106,6 +106,9 @@ Planet.prototype = {
       this.stroke = ship.stroke;
     }
 
+    var thetaDur = null;
+    if (!ship) thetaDur = 0.01;
+
     ship = ship || new Ship({
       x: this.x,
       y: this.y,
@@ -143,6 +146,7 @@ Planet.prototype = {
       x: orbitLocation.x,
       y: orbitLocation.y
     }, {
+      thetaDur: thetaDur,
       velocity: 300,
       onFinish: function(){
         ship.kineticShape.destroy();
