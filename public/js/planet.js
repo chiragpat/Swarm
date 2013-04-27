@@ -11,6 +11,11 @@ function Planet(options) {
   this.shipSize = options.shipSize || 3;
   this.owner = options.owner || "";
   this.kineticShape = this.generateKineticShape();
+  if (options.socket) {
+    this.socket = options.socket;
+    this.index = options.index;
+  }
+
   this.movingHandler();
   this.ships = [];
   this.__lastShipOrbitRotation = 0,
@@ -24,6 +29,8 @@ function Planet(options) {
     this.setAnimation();
     this.startAnimation();
   }
+
+
 }
 
 Planet.selected = null;
@@ -47,6 +54,9 @@ Planet.prototype = {
         else if(Planet.selected != self) {
           self.kineticShape.setStroke('#d80c0c');
           Planet.moving = self;
+          if (self.socket) {
+            self.socket.emit('Sent Ships', {id: gameId, from: Planet.selected.index, to: self.index, numShips: Planet.selected.ships.length});
+          }
           Planet.selected.moveShipsTo(self, function(){
             Planet.selected.kineticShape.setStroke(Planet.selected.stroke);
             self.kineticShape.setStroke(self.stroke);

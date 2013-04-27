@@ -1,7 +1,8 @@
 $$(document).ready(function(){
-  var stage, layers = [], planets = [], env;
+  var stage, layers = [], planets = [], env, gameId;
 
   var socket = io.connect();
+  window.gameId = window.location.pathname.split( '/' )[2];
 
   stage = new Kinetic.Stage({
     container: 'game-container',
@@ -25,7 +26,9 @@ $$(document).ready(function(){
       layer: layer,
       color: color,
       owner: __planets[i].owner,
-      cap: __planets[i].cap
+      cap: __planets[i].cap,
+      index: i,
+      socket: socket
     });
     layers.push(layer);
     planets.push(planet);
@@ -38,9 +41,16 @@ $$(document).ready(function(){
         planets[i].addNewShip();
       }
     }
-  }, 7000);
+  }, 15000);
 
   socket.on('connect', function(data){
     console.log('Socket Connected');
+    socket.emit('Joint Game', {id: window.gameId});
+  });
+
+  socket.on('Sent Ships', function(data) {
+    planets[data.from].moveShipsTo(planets[data.to], function() {
+      planets[data.to].kineticShape.setStroke(planets[data.to].stroke);
+    });
   });
 });
