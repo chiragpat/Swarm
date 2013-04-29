@@ -12,7 +12,7 @@ var express = require('express'),
     dust = require('consolidate').dust,
     MongoStore = require('connect-mongo')(express),
     socketServer = require('./lib/socket-server');
-
+console.log(process.env.SWARM_DB_URL)
 var app = express();
 
 app.engine('dust', dust);
