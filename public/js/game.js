@@ -74,6 +74,9 @@ $$(document).ready(function(){
   socket.on('Sent Ships', function(data) {
     planets[data.from].moveShipsTo(planets[data.to], function() {
       planets[data.to].kineticShape.setStroke(planets[data.to].stroke);
+      planets[data.from].kineticShape.setStroke(planets[data.from].stroke);
+      Planet.selected = null;
+      Planet.moving = null;
     });
   });
 
