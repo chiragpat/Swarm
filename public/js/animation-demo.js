@@ -43,7 +43,29 @@ $$(document).ready(function(){
     numShips: 5,
     layer: layer4
   });
-  planets = [planet,planet2,planet3,planet4];
+
+  planet5 = new Planet({
+    x: 75,
+    y: 100,
+    numShips: 5,
+    layer: layer4
+  });
+
+  planet6 = new Planet({
+    x: 150,
+    y: 125,
+    numShips: 5,
+    layer: layer4
+  });
+
+  planet7 = new Planet({
+    x: 50,
+    y: 250,
+    numShips: 5,
+    layer: layer4
+  });
+
+  planets = [planet,planet2,planet3,planet4,planet5,planet6,planet7];
 
   moveShip = new Ship();
   shipLayer.add(moveShip.kineticShape);
@@ -105,17 +127,19 @@ $$(document).ready(function(){
     }
 
     stage.add(leaderboard.layer);
+    rotationAnim = rotateLeaderboard();
+    rotationAnim.start();
 
     return leaderboard
   }
   // Updates the leaderboard
-  // @param newPlayerInfo = [player, player, .. , player]
+  // @param newPlayerInfo = [player1r, player, .. , player]
   // where player.color = 'some-color' and
   //       player.domain = X, the number of planets they occupy
   updateLeaderboard = function(newPlayerInfo) {
 
-    centerX = 190;
-    centerY = 190;
+    centerX = 90;
+    centerY = 90;
     radius = 50;
 
     for (var i = 0; i < newPlayerInfo.length; i++) {
@@ -133,7 +157,6 @@ $$(document).ready(function(){
 
       leaderboard.items[i].end_angle = leaderboard.items[i].start_angle + domainToAngle(newPlayerInfo[i].domain);
 
-      console.log(leaderboard.items[i]);
       var color = leaderboard.items[i].color;
       var start_angle = leaderboard.items[i].start_angle;
       var end_angle = leaderboard.items[i].end_angle;
@@ -145,6 +168,7 @@ $$(document).ready(function(){
     }
 
     stage.add(leaderboard.layer);
+
   }
 
   // Converts the portion of planets occupied to an equivalent portion of the circle
@@ -177,20 +201,38 @@ $$(document).ready(function(){
     x: 0,
     y: 0,
     strokeWidth: 2,
-    fill: color
+    fill: color,
+    offset: [90, 90]
 
     });
+
+  }
+
+  // Sets up a rotation animation for the leaderboard
+  rotateLeaderboard = function() {
+
+    var angularSpeed = Math.PI / 32;
+    var anim = new Kinetic.Animation(function(frame) {
+      var angleDiff = frame.timeDiff * angularSpeed / 1000;
+
+      for (var i = 0; i < leaderboard.items.length; i++) {
+        leaderboard.items[i].kineticShape.rotate(angleDiff);
+      }
+
+    }, leaderboard.layer);
+
+    return anim;
 
   }
 
   // Hardcoded data to test the leaderboard with
   player1 = new Object();
   player1.color = 'blue';
-  player1.domain = 1;
+  player1.domain = 3;
 
   player2 = new Object();
   player2.color = 'red';
-  player2.domain = 1;
+  player2.domain = 2;
 
   player3 = new Object();
   player3.color = 'white';
@@ -200,7 +242,7 @@ $$(document).ready(function(){
   playerInfoUpdated = [player2,player3,player1];
 
   createLeaderboard(playerInfo);
-  // updateLeaderboard(playerInfoUpdated);
+  //updateLeaderboard(playerInfoUpdated);
 
 
   
