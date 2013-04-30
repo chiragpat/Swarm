@@ -11,19 +11,19 @@ $$(document).ready(function(){
   });
 
   var owner2 = "";
-  var blue_count = 0;
-  var red_count = 0;
+  var blueCount = 0;
+  var redCount = 0;
 
   for (var i = 0; i < __planets.length; i++) {
     var color = '';
     if(__planets[i].owner === __uname) {
       color = 'blue';
-      blue_count++;
+      blueCount++;
     }
     else if(__planets[i].owner !== "") {
       owner2 = __planets[i].owner;
       color = 'red';
-      red_count++;
+      redCount++;
     }
     var layer = new Kinetic.Layer();
     var planet = new Planet({
@@ -44,12 +44,12 @@ $$(document).ready(function(){
 
   var owners = {};
   owners[__uname] = {
-    count: blue_count,
-    color: 'blue' 
+    count: blueCount,
+    color: 'blue'
   };
   owners[owner2] = {
-    count: red_count,
-    color: 'red' 
+    count: redCount,
+    color: 'red'
   };
 
   leaderboard = new Leaderboard({
