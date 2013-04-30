@@ -1,14 +1,14 @@
 {>"layout"/}
 
 {<body}
-<div class="game-menu"><!--<a href="#">\\ pause</a> <br>--> <a href="/">\\ quit</a></div>
+<div class="game-menu">{! <a href="#">\\ pause</a> <br>--> !}<a href="/">\\ quit</a></div>
 <div id="game-container"></div>
 
 
-<audio autoplay loop>
+{! <audio autoplay loop>
   <source src="/sound/originalSwarm.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
-</audio>
+</audio> !}
 {/body}
 
 {<script}
@@ -20,6 +20,6 @@ Your browser does not support the audio element.
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/ship.js"></script>
 <script src="/js/planet.js"></script>
-<script src="/js/game.js"></script>
 <script src="/js/leaderboard.js"></script>
+<script src="/js/game.js"></script>
 {/script}
