@@ -130,8 +130,8 @@ Planet.prototype = {
       this.stroke = ship.stroke;
     }
 
-    var thetaDur = null;
-    if (!ship) thetaDur = 0.01;
+    var thetaDur = 0.01;
+    // if (!ship) thetaDur = 0.01;
 
     ship = ship || new Ship({
       x: this.x,

@@ -136,6 +136,7 @@ Ship.prototype = {
 
   attack: function(ship, cb) {
     if (!ship) return;
+    var thetaDur = 0.01;
     cb = cb || (function(){});
 
     this.kineticShape.setPosition(this.x, this.y);
@@ -156,9 +157,12 @@ Ship.prototype = {
       y: this.y + 0.73*(ship.y - this.y)
     };
 
-    ship.moveTo(ptToGo);
+    ship.moveTo(ptToGo, {
+      thetaDur: thetaDur
+    });
 
     this.moveTo(ptToGo2, {
+      thetaDur: thetaDur,
       onFinish: function(){
         this.explode();
         ship.explode(cb);
