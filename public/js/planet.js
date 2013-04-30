@@ -118,6 +118,12 @@ Planet.prototype = {
 
     Planet.addingShip = true;
     if (ship && ship.owner != this.owner) {
+      if(this.owner !== "") {
+        leaderboard.owners[this.owner].count --;
+      }
+      leaderboard.owners[ship.owner].count ++;
+      leaderboard.adjust();
+
       this.owner = ship.owner;
       this.stroke = ship.stroke;
     }

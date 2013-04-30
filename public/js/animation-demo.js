@@ -108,6 +108,7 @@ $$(document).ready(function(){
 
     return leaderboard
   }
+
   // Updates the leaderboard
   // @param newPlayerInfo = [player, player, .. , player]
   // where player.color = 'some-color' and
@@ -201,9 +202,5 @@ $$(document).ready(function(){
 
   createLeaderboard(playerInfo);
   // updateLeaderboard(playerInfoUpdated);
-
-
-  
-
 
 });
