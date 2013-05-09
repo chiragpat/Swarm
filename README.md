@@ -4,6 +4,14 @@ Swarm
 Multiplayer game built using HTML5 and node.js.
 [Live Version Here](http://swarm.jit.su)
 
+## Features to Check Out
+
+The system is pretty simple from the outside, so I think you will notice all of the features.
+
+1. User Accounts
+2. Live Multiplayer and Practice Modes
+3. Motions, Gameplay, and Graphics
+
 ## Installation
 
 1. Install [nodejs](https://github.com/joyent/node) and [npm](https://github.com/isaacs/npm)
