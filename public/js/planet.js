@@ -57,12 +57,14 @@ Planet.prototype = {
           if (self.socket) {
             self.socket.emit('Sent Ships', {id: gameId, from: Planet.selected.index, to: self.index, numShips: Planet.selected.ships.length});
           }
-          Planet.selected.moveShipsTo(self, function(){
-            Planet.selected.kineticShape.setStroke(Planet.selected.stroke);
-            self.kineticShape.setStroke(self.stroke);
-            Planet.selected = null;
-            Planet.moving = null;
-          });
+          else {
+            Planet.selected.moveShipsTo(self, function(){
+              Planet.selected.kineticShape.setStroke(Planet.selected.stroke);
+              self.kineticShape.setStroke(self.stroke);
+              Planet.selected = null;
+              Planet.moving = null;
+            });
+          }
         }
       }
     });
@@ -128,8 +130,8 @@ Planet.prototype = {
       this.stroke = ship.stroke;
     }
 
-    var thetaDur = null;
-    if (!ship) thetaDur = 0.01;
+    var thetaDur = 0.01;
+    // if (!ship) thetaDur = 0.01;
 
     ship = ship || new Ship({
       x: this.x,

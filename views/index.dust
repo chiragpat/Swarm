@@ -12,9 +12,9 @@
 
             <div class="login-container">
                 <form method="POST">
-                    <input type="text" name="uname" placeholder="username">
-                    <input type="password" name="pwd" placeholder="password">
-                    <input type="submit" class="login btn" value="Login">
+                    <input type="text" name="uname" placeholder="username" autocorrect="off" autocapitalize="off">
+                    <input type="password" name="pwd" placeholder="password" autocorrect="off" autocapitalize="off">
+                    <input type="submit" class="login btn" value="Login" autocorrect="off" autocapitalize="off">
                 </form>
             </div>
 
@@ -27,9 +27,9 @@
 
             <div class="register-container">
                 <form method="POST">
-                    <input type="text" name="uname" placeholder="username">
-                    <input type="password" name="pwd" placeholder="password">
-                    <input type="password" name="cpwd" placeholder="verify password">
+                    <input type="text" name="uname" placeholder="username" autocorrect="off" autocapitalize="off">
+                    <input type="password" name="pwd" placeholder="password" autocorrect="off" autocapitalize="off">
+                    <input type="password" name="cpwd" placeholder="verify password" autocorrect="off" autocapitalize="off">
                     <input type="submit" class="register btn" value="Register">
                 </form>
             </div>
