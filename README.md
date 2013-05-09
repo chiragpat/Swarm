@@ -1,5 +1,7 @@
-Swarm      [![Build Status](https://api.travis-ci.org/chiragpat/Swarm.png)](http://travis-ci.org/chiragpat/Swarm)
+Swarm      
 ===
+[![Build Status](https://api.travis-ci.org/chiragpat/Swarm.png)](http://travis-ci.org/chiragpat/Swarm)
+
 
 Multiplayer game built using HTML5 and node.js.
 [Live Version Here](http://swarm.jit.su)
