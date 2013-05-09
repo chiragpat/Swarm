@@ -2,7 +2,7 @@ Swarm
 ===
 
 Multiplayer game built using HTML5 and node.js.
-[Live Version Here](http://swarm.jit.su)
+[Live Version Here](http://swarm.jit.su) [![Build Status](https://api.travis-ci.org/chiragpat/Swarm.png)](http://travis-ci.org/chiragpat/Swarm)
 
 ## Features to Check Out
 
