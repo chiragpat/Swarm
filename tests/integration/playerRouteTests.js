@@ -8,11 +8,11 @@ describe('Player Routes', function(){
       libpath       = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
       playerRoutes  = require(libpath + '/routes/players'),
       PlayerSchema  = require(libpath + '/models/player'),
-      db            = mongoose.createConnection(process.env.SWARM_DB_URL),
-      TestPlayers   = db.model('TestPlayer', PlayerSchema),
+      TestPlayers   = mongoose.model('TestPlayer', PlayerSchema),
       player1       = new TestPlayers();
 
   before(function(done){
+    mongoose.connect(process.env.SWARM_DB_URL);
     TestPlayers.remove({}, function(err){
       if (err) {
         return done(err);
@@ -172,7 +172,7 @@ describe('Player Routes', function(){
 
   after(function(done){
     TestPlayers.remove({}, function(err){
-      db.close();
+      mongoose.connection.close();
       done();
     });
   });

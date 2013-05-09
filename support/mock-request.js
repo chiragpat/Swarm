@@ -1,10 +1,12 @@
-var MockRequest = function (body, session) {
+var MockRequest = function (body, session, params) {
   body = body || {};
   session = session || {};
+  params = params || {};
 
   return {
     body: body,
-    session: session
+    session: session,
+    params: params
   };
 };
 

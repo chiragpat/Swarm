@@ -4,18 +4,17 @@ var chai         = require('chai'),
     should       = chai.should(),
     libpath      = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
     PlayerSchema = require(libpath + '/models/player'),
-    db           = mongoose.createConnection(process.env.SWARM_DB_URL),
-    TestPlayers  = db.model('TestPlayer', PlayerSchema),
+    TestPlayers  = mongoose.model('TestPlayer', PlayerSchema),
     player1      = new TestPlayers();
 
 describe('Player Schema', function(){
 
   before(function(done){
+    mongoose.connect(process.env.SWARM_DB_URL);
     TestPlayers.remove({}, function(err){
       if (err) {
         return done(err);
       }
-
       player1.username = 'test1';
       player1.password = 'test11';
       player1.save(done);
@@ -90,7 +89,7 @@ describe('Player Schema', function(){
 
   after(function(done){
     TestPlayers.remove({}, function(err){
-      db.close();
+      mongoose.connection.close();
       done();
     });
   });
