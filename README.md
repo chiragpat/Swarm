@@ -43,3 +43,7 @@ To change ports add environment variable PORT with the port you want to run the 
 
 ## Running Tests
     $ make test
+
+To show test coverage, make sure you have [jscoverage](http://siliconforks.com/jscoverage/) installed and then run
+
+    $ make test-cov
