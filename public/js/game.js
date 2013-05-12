@@ -60,14 +60,17 @@ $$(document).ready(function(){
       owners: owners
     });
 
-    // setInterval(function(){
- 
-    // }, 15000);
   };
 
   socket.on('connect', function(data) {
     console.log('Socket Connected');
-    socket.emit('Joint Game', {id: window.gameId});
+    if (players.indexOf("AI") != -1) {
+      socket.emit('Joint Game', {id: window.gameId, practice: true});
+    }
+    else {
+      socket.emit('Joint Game', {id: window.gameId, practice: false});
+    }
+
   });
 
   socket.on('ready', function(data) {
