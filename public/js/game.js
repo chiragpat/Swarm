@@ -2,7 +2,7 @@ $$(document).ready(function(){
   var stage, layers = [], planets = [], env, gameId, setupGame;
 
   var socket = io.connect();
-  window.gameId = window.location.pathname.split( '/' )[2];
+  window.gameId = window.location.pathname.split('/')[2];
 
   setupGame = function() {
     $$('.wait').remove();

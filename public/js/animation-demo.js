@@ -1,7 +1,6 @@
-$$(document).ready(function(){
+$$(document).ready(function () {
   var moveShip, env, stage, layer, shipLayer, planet, planet2, planet3, planet4, planets, layer2, layer3, layer4, leaderboard;
   env = $$.environment();
-
   window.__uname = '';
 
   stage = new Kinetic.Stage({

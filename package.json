@@ -1,7 +1,9 @@
 {
   "name": "Swarm",
-  "version": "0.0.2-14",
-  "private": true,
+  "version": "0.0.2-17",
+  "domains": [
+    "www.chiragpat.com"
+  ],
   "scripts": {
     "start": "node app.js",
     "test": "make test"
@@ -15,7 +17,8 @@
     "mongoose": "3.6.4",
     "mocha": "*",
     "chai": "1.5.0",
-    "underscore": "1.4.4"
+    "underscore": "1.4.4",
+    "connect-gzip": "~0.1.6"
   },
   "subdomain": "swarm",
   "engines": {
