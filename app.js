@@ -24,7 +24,7 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'dust');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.compress());
+// app.use(express.compress());
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
@@ -36,8 +36,8 @@ app.use(express.session({
   })
 }));
 app.use(app.router);
-// app.use(express.static(path.join(__dirname, 'public')));
-app.use(gzip.staticGzip(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(gzip.staticGzip(path.join(__dirname, 'public')));
 
 // development only
 if ('development' === app.get('env')) {
