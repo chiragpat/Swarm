@@ -61,8 +61,14 @@ app.get('/animation-demo', function (req, res) {
   res.render('animation-demo');
 });
 
-var server = http.createServer(app).listen(app.get('port'), function () {
-  console.log('Express server listening on port ' + app.get('port'));
-});
+if (require.main === module) {
+  var server = http.createServer(app).listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+  });
 
-socketServer(server);
+  socketServer(server);
+}
+else {
+  exports.app = app;
+  exports.socketServer = socketServer;
+}
