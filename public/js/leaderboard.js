@@ -1,4 +1,4 @@
-/* global Kinetic */
+/* global Kinetic, window */
 (function () {
   'use strict';
   function Leaderboard(options) {
@@ -52,6 +52,8 @@
 
       this.stage.add(layer);
 
-    }    
+    }
   };
+
+  window.Leaderboard = Leaderboard;
 })();

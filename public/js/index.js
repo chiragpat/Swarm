@@ -1,4 +1,6 @@
-$$(document).ready(function(){
+/* global document, Kinetic, $$, Swipe, window, Ship */
+$$(document).ready(function () {
+  'use strict';
   var slider, validateUserName, validatePassword, validateForm;
 
   slider = new Swipe(document.getElementById('slider'), {
@@ -7,12 +9,12 @@ $$(document).ready(function(){
     continuous: false
   });
 
-  validateUserName = function(uname) {
+  validateUserName = function (uname) {
     var unameRegex = /^[a-z0-9]([a-z0-9_-]{2,15})$/;
     return unameRegex.test(uname);
   };
 
-  validatePassword = function(pwd, cpwd) {
+  validatePassword = function (pwd, cpwd) {
     var pwdRegex = /^[A-Za-z0-9\.\_\-\$]{3,18}$/;
     if (cpwd === undefined || cpwd === null) {
       cpwd = pwd;
@@ -21,7 +23,7 @@ $$(document).ready(function(){
     return pwdRegex.test(pwd) && pwdRegex.test(cpwd) && pwd === cpwd;
   };
 
-  validateForm = function($$uname, $$pwd, $$cpwd) {
+  validateForm = function ($$uname, $$pwd, $$cpwd) {
     if (!$$cpwd) {
       $$cpwd = $$pwd;
     }
@@ -51,13 +53,13 @@ $$(document).ready(function(){
     return valid;
   };
 
-  $$('[data-slide]').on('tap', function(e) {
+  $$('[data-slide]').on('tap', function (e) {
     e.preventDefault();
-    var slide_no = $$(this).data('slide');
-    slider.slide(slide_no);
+    var slideNo = $$(this).data('slide');
+    slider.slide(slideNo);
   });
 
-  $$('.login-container form').on('submit', function(e){
+  $$('.login-container form').on('submit', function (e) {
     e.preventDefault();
     var $$uname       = $$('.login-container [name="uname"]'),
         $$pwd         = $$('.login-container [name="pwd"]');
@@ -65,12 +67,12 @@ $$(document).ready(function(){
     if (validateForm($$uname, $$pwd)) {
       $$.post('/login',
         {uname: $$uname.val(), pwd: $$pwd.val()},
-        function(data){
+        function (data) {
           if (!data.error) {
-            location.reload();
+            window.location.reload();
           }
           else {
-            $$error = $$('<div class="error"></div>');
+            var $$error = $$('<div class="error"></div>');
             $$error.text(data.error);
             $$('.login-container').prepend($$error);
           }
@@ -78,7 +80,7 @@ $$(document).ready(function(){
     }
   });
 
-  $$('.register-container form').on('submit', function(e) {
+  $$('.register-container form').on('submit', function (e) {
     var $$uname       = $$('.register-container [name="uname"]'),
         $$pwd         = $$('.register-container [name="pwd"]'),
         $$cpwd        = $$('.register-container [name=cpwd]');
@@ -86,12 +88,12 @@ $$(document).ready(function(){
     if (validateForm($$uname, $$pwd, $$cpwd)) {
       $$.post('/register',
         {uname: $$uname.val(), pwd: $$pwd.val()},
-        function(data){
+        function (data) {
           if (!data.error) {
-            location.reload();
+            window.location.reload();
           }
           else {
-            $$error = $$('<div class="error"></div>');
+            var $$error = $$('<div class="error"></div>');
             $$error.text(data.error);
             $$('.register-container').prepend($$error);
           }
@@ -102,22 +104,22 @@ $$(document).ready(function(){
     e.preventDefault();
   });
 
-  var env, stage, layer, ships = [], num_ships, i;
+  var env, stage, layer, ships = [], numShips, i;
 
   env = $$.environment();
   stage = new Kinetic.Stage({
     container: 'moving-ships',
-    width: env.screen.width-15,
-    height: env.screen.height-15
+    width: env.screen.width - 15,
+    height: env.screen.height - 15
   });
 
   layer = new Kinetic.Layer();
 
-  num_ships = 8;
-  for (i = 0; i < num_ships; i++) {
+  numShips = 8;
+  for (i = 0; i < numShips; i++) {
     var ship = new Ship({
-      x: Math.floor(Math.random()*stage.getWidth()),
-      y: Math.floor(Math.random()*stage.getHeight()),
+      x: Math.floor(Math.random() * stage.getWidth()),
+      y: Math.floor(Math.random() * stage.getHeight()),
       length: 15,
       width: 15
     });

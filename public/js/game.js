@@ -1,10 +1,12 @@
-$$(document).ready(function(){
-  var stage, layers = [], planets = [], env, gameId, setupGame;
+/* global document, Kinetic, $$, window, Planet, io, Leaderboard */
+$$(document).ready(function () {
+  'use strict';
+  var stage, layers = [], planets = [], setupGame;
 
   var socket = io.connect();
   window.gameId = window.location.pathname.split('/')[2];
 
-  setupGame = function() {
+  setupGame = function () {
     $$('.wait').remove();
     stage = new Kinetic.Stage({
       container: 'game-container',
@@ -12,30 +14,30 @@ $$(document).ready(function(){
       height: 600
     });
 
-    var owner2 = "";
+    var owner2 = '';
     var blueCount = 0;
     var redCount = 0;
 
-    for (var i = 0; i < __planets.length; i++) {
+    for (var i = 0; i < window.__planets.length; i++) {
       var color = '';
-      if(__planets[i].owner === __uname) {
+      if (window.__planets[i].owner === window.__uname) {
         color = 'blue';
         blueCount++;
       }
-      else if(__planets[i].owner !== "") {
-        owner2 = __planets[i].owner;
+      else if (window.__planets[i].owner !== '') {
+        owner2 = window.__planets[i].owner;
         color = 'red';
         redCount++;
       }
       var layer = new Kinetic.Layer();
       var planet = new Planet({
-        x: __planets[i].position.x,
-        y: __planets[i].position.y,
-        numShips: __planets[i].population,
+        x: window.__planets[i].position.x,
+        y: window.__planets[i].position.y,
+        numShips: window.__planets[i].population,
         layer: layer,
         color: color,
-        owner: __planets[i].owner,
-        cap: __planets[i].cap,
+        owner: window.__planets[i].owner,
+        cap: window.__planets[i].cap,
         index: i,
         socket: socket
       });
@@ -45,7 +47,7 @@ $$(document).ready(function(){
     }
 
     var owners = {};
-    owners[__uname] = {
+    owners[window.__uname] = {
       count: blueCount,
       color: 'blue'
     };
@@ -54,17 +56,16 @@ $$(document).ready(function(){
       color: 'red'
     };
 
-    leaderboard = new Leaderboard({
+    window.leaderboard = new Leaderboard({
       stage: stage,
-      total: __planets.length,
+      total: window.__planets.length,
       owners: owners
     });
 
   };
 
-  socket.on('connect', function(data) {
-    console.log('Socket Connected');
-    if (players.indexOf("AI") != -1) {
+  socket.on('connect', function () {
+    if (window.players.indexOf('AI') !== -1) {
       socket.emit('Joint Game', {id: window.gameId, practice: true});
     }
     else {
@@ -73,23 +74,23 @@ $$(document).ready(function(){
 
   });
 
-  socket.on('ready', function(data) {
+  socket.on('ready', function () {
     setupGame();
   });
 
-  socket.on('New Ship', function(data) {
+  socket.on('New Ship', function () {
     for (var i = 0; i < planets.length; i++) {
-      if(planets[i].owner !== "" && planets[i].ships.length < planets[i].cap) {
+      if (planets[i].owner !== '' && planets[i].ships.length < planets[i].cap) {
         planets[i].addNewShip();
       }
     }
   });
 
-  socket.on('Sent Ships', function(data) {
-    planets[data.from].moveShipsTo(planets[data.to], function() {
+  socket.on('Sent Ships', function (data) {
+    planets[data.from].moveShipsTo(planets[data.to], function () {
       planets[data.to].kineticShape.setStroke(planets[data.to].stroke);
       planets[data.from].kineticShape.setStroke(planets[data.from].stroke);
-      if (Planet.selected == planets[data.from]) {
+      if (Planet.selected === planets[data.from]) {
         Planet.selected = null;
         Planet.moving = null;
       }

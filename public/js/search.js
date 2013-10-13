@@ -1,9 +1,11 @@
-$$(document).ready(function(){
-  var env, stage, layer, ships = [], num_ships, i;
+/* global document, Kinetic, $$, window, io, Planet, console */
+$$(document).ready(function () {
+  'use strict';
+
+  var env, stage, layer, planet;
 
   env = $$.environment();
 
-  console.log('Connecting');
   var socket = io.connect();
 
   stage = new Kinetic.Stage({
@@ -13,7 +15,7 @@ $$(document).ready(function(){
   });
 
   layer = new Kinetic.Layer();
-  planet = new Planet({
+  planet = new window.Planet({
     x: 150,
     y: 150,
     layer: layer,
@@ -24,16 +26,16 @@ $$(document).ready(function(){
 
   stage.add(layer);
 
-  socket.on('connect', function(data){
+  socket.on('connect', function () {
     console.log('Connection Established Searching');
-    socket.emit('Search', {uname: __uname});
+    socket.emit('Search', {uname: window.__uname});
   });
 
-  socket.on('Player Found', function(data){
+  socket.on('Player Found', function (data) {
     console.log('Player Found: ', data.uname);
   });
 
-  socket.on('Game Created', function(data){
+  socket.on('Game Created', function (data) {
     console.log('Game Created Redirecting');
     window.location.href = data.url;
   });
