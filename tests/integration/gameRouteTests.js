@@ -56,7 +56,7 @@ describe('Game Routes', function () {
 
       var res = mockResponse(function () {
         (res.redirectPath).should.match(/\/game\/.+/);
-        var gameId = res.redirect_path.split('/')[2];
+        var gameId = res.redirectPath.split('/')[2];
         TestGames.findOne({_id: gameId}, function (err, game) {
           if (err) {
             done(err);
@@ -90,7 +90,7 @@ describe('Game Routes', function () {
       var req = mockRequest();
 
       var res = mockResponse(function () {
-        res.redirect_path.should.eql('/');
+        res.redirectPath.should.eql('/');
         done();
       });
 
