@@ -27,12 +27,12 @@ $$(document).ready(function () {
     if (!$$cpwd) {
       $$cpwd = $$pwd;
     }
-    var uname         = $$uname.val(),
-        pwd           = $$pwd.val(),
-        cpwd          = $$cpwd.val(),
+    var uname = $$uname.val(),
+        pwd = $$pwd.val(),
+        cpwd = $$cpwd.val(),
         validUserName = validateUserName(uname),
         validPassword = validatePassword(pwd, cpwd),
-        valid         = true;
+        valid = true;
 
     $$uname.removeClass('error');
     $$pwd.removeClass('error');
@@ -61,8 +61,8 @@ $$(document).ready(function () {
 
   $$('.login-container form').on('submit', function (e) {
     e.preventDefault();
-    var $$uname       = $$('.login-container [name="uname"]'),
-        $$pwd         = $$('.login-container [name="pwd"]');
+    var $$uname = $$('.login-container [name="uname"]'),
+        $$pwd = $$('.login-container [name="pwd"]');
 
     if (validateForm($$uname, $$pwd)) {
       $$.post('/login',
@@ -81,9 +81,9 @@ $$(document).ready(function () {
   });
 
   $$('.register-container form').on('submit', function (e) {
-    var $$uname       = $$('.register-container [name="uname"]'),
-        $$pwd         = $$('.register-container [name="pwd"]'),
-        $$cpwd        = $$('.register-container [name=cpwd]');
+    var $$uname = $$('.register-container [name="uname"]'),
+        $$pwd = $$('.register-container [name="pwd"]'),
+        $$cpwd = $$('.register-container [name=cpwd]');
 
     if (validateForm($$uname, $$pwd, $$cpwd)) {
       $$.post('/register',

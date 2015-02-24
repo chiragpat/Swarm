@@ -1,8 +1,9 @@
+/*eslint no-underscore-dangle:0*/
 /* global Kinetic, window, Ship*/
 (function () {
   'use strict';
 
-  function Planet(options) {
+  function Planet (options) {
     options = options || {};
     this.x = options.x || 15;
     this.y = options.y || 15;
@@ -249,7 +250,8 @@
         return;
       }
       if (!this.ships.length) {
-        return cb();
+        cb();
+        return;
       }
 
       if (this.owner === planet.owner) {
@@ -261,7 +263,7 @@
         }
         while (planet.ships.length > 0 && this.ships.length > 0) {
           attackingShip = this.ships.pop();
-          shipToAttack  = planet.ships.pop();
+          shipToAttack = planet.ships.pop();
           tempCb = (!this.ships.length || !planet.ships.length) ? cb : null;
           attackingShip.attack(shipToAttack, tempCb);
         }
@@ -281,4 +283,4 @@
   };
 
   window.Planet = Planet;
-})();
+}());

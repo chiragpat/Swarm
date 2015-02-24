@@ -1,7 +1,7 @@
 /* global Kinetic, window */
 (function () {
   'use strict';
-  function Leaderboard(options) {
+  function Leaderboard (options) {
     options = options || {};
     this.x = options.x || 15;
     this.y = options.y || 15;
@@ -56,4 +56,4 @@
   };
 
   window.Leaderboard = Leaderboard;
-})();
+}());

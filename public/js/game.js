@@ -1,3 +1,4 @@
+/*eslint no-underscore-dangle:0*/
 /* global document, Kinetic, $$, window, Planet, io, Leaderboard */
 $$(document).ready(function () {
   'use strict';

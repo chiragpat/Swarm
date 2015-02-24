@@ -1,17 +1,19 @@
-var chai         = require('chai'),
-    mongoose     = require('mongoose'),
-    assert       = chai.assert,
-    should       = chai.should(),
-    libpath      = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
-    PlayerSchema = require(libpath + '/models/player'),
-    TestPlayers  = mongoose.model('TestPlayer', PlayerSchema),
-    player1      = new TestPlayers();
+'use strict';
 
-describe('Player Schema', function(){
+var libpath = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
+var chai = require('chai'),
+    mongoose = require('mongoose'),
+    PlayerSchema = require(libpath + '/models/player');
 
-  before(function(done){
+var TestPlayers = mongoose.model('TestPlayer', PlayerSchema),
+    player1 = new TestPlayers(),
+    should = chai.should();
+
+describe('Player Schema', function () {
+
+  before(function (done) {
     mongoose.connect(process.env.SWARM_DB_URL);
-    TestPlayers.remove({}, function(err){
+    TestPlayers.remove({}, function (err) {
       if (err) {
         return done(err);
       }
@@ -21,9 +23,9 @@ describe('Player Schema', function(){
     });
   });
 
-  describe('.findByUsername', function(){
-    it('should return the user object if it exists', function(done){
-      TestPlayers.findByUsername('test1', function(err, doc){
+  describe('.findByUsername', function () {
+    it('should return the user object if it exists', function (done) {
+      TestPlayers.findByUsername('test1', function (err, doc) {
         if (err) {
           done(err);
         }
@@ -35,8 +37,8 @@ describe('Player Schema', function(){
       });
     });
 
-    it('should return nothing if user does no exist', function(done){
-      TestPlayers.findByUsername('user111', function(err, doc){
+    it('should return nothing if user does no exist', function (done) {
+      TestPlayers.findByUsername('user111', function (err, doc) {
         if (err) {
           done(err);
         }
@@ -48,47 +50,50 @@ describe('Player Schema', function(){
     });
   });
 
-  describe('.usernameExists', function(){
-    it('should return true if username already exists', function(done){
-      TestPlayers.usernameExists('test1', function(err, exists){
+  describe('.usernameExists', function () {
+    it('should return true if username already exists', function (done) {
+      TestPlayers.usernameExists('test1', function (err, exists) {
         if (err) {
           done(err);
         }
         else {
           should.not.exist(err);
-          exists.should.be.true;
+          exists.should.be.ok();
           done();
         }
       });
     });
 
-    it('should return false if username does not exist', function(done){
-      TestPlayers.usernameExists('test111', function(err, exists){
+    it('should return false if username does not exist', function (done) {
+      TestPlayers.usernameExists('test111', function (err, exists) {
         if (err) {
           done(err);
         }
         else {
-          exists.should.be.false;
+          exists.should.be.not.ok();
           done();
         }
       });
     });
   });
 
-  describe('#authenticate', function(){
-    it('should return true if the password matches the user password', function(done){
-      (player1.authenticate('test11')).should.be.true;
+  describe('#authenticate', function () {
+    it('should return true if the password matches the user password', function (done) {
+      (player1.authenticate('test11')).should.be.ok();
       done();
     });
 
-    it('should return false if the password does not match the user password', function(done){
-      (player1.authenticate('test111')).should.be.false;
+    it('should return false if the password does not match the user password', function (done) {
+      (player1.authenticate('test111')).should.be.not.ok();
       done();
     });
   });
 
-  after(function(done){
-    TestPlayers.remove({}, function(err){
+  after(function (done) {
+    TestPlayers.remove({}, function (err) {
+      if (err) {
+        done(err);
+      }
       mongoose.connection.close();
       done();
     });

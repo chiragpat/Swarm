@@ -1,11 +1,9 @@
+/*eslint no-underscore-dangle:0,no-new:0*/
 /* global document, Kinetic, $$, window, io, Planet, console */
 $$(document).ready(function () {
   'use strict';
 
-  var env, stage, layer, planet;
-
-  env = $$.environment();
-
+  var stage, layer;
   var socket = io.connect();
 
   stage = new Kinetic.Stage({
@@ -15,7 +13,7 @@ $$(document).ready(function () {
   });
 
   layer = new Kinetic.Layer();
-  planet = new window.Planet({
+  new Planet({
     x: 150,
     y: 150,
     layer: layer,

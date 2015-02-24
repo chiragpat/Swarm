@@ -9,18 +9,17 @@ var express = require('express'),
     games = require('./lib/routes/games'),
     http = require('http'),
     path = require('path'),
-    dust = require('consolidate').dust,
-    gzip = require('connect-gzip'),
-    MongoStore = require('connect-mongo')(express),
     socketServer = require('./lib/socket-server');
 
+var dust = require('consolidate').dust;
+var MongoStore = require('connect-mongo')(express);
 var app = express();
 
 app.engine('dust', dust);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'dust');
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -40,7 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(gzip.staticGzip(path.join(__dirname, 'public')));
 
 // development only
-if ('development' === app.get('env')) {
+if (app.get('env') === 'development') {
   app.use(express.errorHandler());
 }
 

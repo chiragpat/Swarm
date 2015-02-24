@@ -1,19 +1,20 @@
-describe('Player Routes', function(){
-  var chai          = require('chai'),
-      mongoose      = require('mongoose'),
-      assert        = chai.assert,
-      should        = chai.should(),
-      mock_request  = require('../../support/mock-request'),
-      mock_response = require('../../support/mock-response'),
-      libpath       = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
-      playerRoutes  = require(libpath + '/routes/players'),
-      PlayerSchema  = require(libpath + '/models/player'),
-      TestPlayers   = mongoose.model('TestPlayer', PlayerSchema),
-      player1       = new TestPlayers();
+'use strict';
+var libpath = process.env.SWARM_COV ? '../../lib-cov' : '../../lib';
+var chai = require('chai'),
+    mongoose = require('mongoose'),
+    mockRequest = require('../../support/mock-request'),
+    mockResponse = require('../../support/mock-response'),
+    playerRoutes = require(libpath + '/routes/players'),
+    PlayerSchema = require(libpath + '/models/player');
 
-  before(function(done){
+var should = chai.should(),
+    TestPlayers = mongoose.model('TestPlayer', PlayerSchema),
+    player1 = new TestPlayers();
+
+describe('Player Routes', function () {
+  before(function (done) {
     mongoose.connect(process.env.SWARM_DB_URL);
-    TestPlayers.remove({}, function(err){
+    TestPlayers.remove({}, function (err) {
       if (err) {
         return done(err);
       }
@@ -24,11 +25,11 @@ describe('Player Routes', function(){
     });
   });
 
-  describe('POST /login', function(){
-    it('should respond with an error for invalid parameters', function(done){
-      var req = mock_request();
+  describe('POST /login', function () {
+    it('should respond with an error for invalid parameters', function (done) {
+      var req = mockRequest();
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.body).should.have.property('error', 'Invalid params');
         done();
       });
@@ -36,10 +37,10 @@ describe('Player Routes', function(){
       playerRoutes.login(req, res);
     });
 
-    it('should respond with an error if user does not exist', function(done){
-      var req = mock_request({uname: "test11", pwd: "test111"});
+    it('should respond with an error if user does not exist', function (done) {
+      var req = mockRequest({uname: 'test11', pwd: 'test111'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.body).should.have.property('error', 'No such username');
         done();
       });
@@ -47,10 +48,10 @@ describe('Player Routes', function(){
       playerRoutes.login(req, res);
     });
 
-    it('should respond with an error if password is incorrect', function(done){
-      var req = mock_request({uname: "test1", pwd: "test111"});
+    it('should respond with an error if password is incorrect', function (done) {
+      var req = mockRequest({uname: 'test1', pwd: 'test111'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.body).should.have.property('error', 'Incorrect password');
         done();
       });
@@ -58,10 +59,10 @@ describe('Player Routes', function(){
       playerRoutes.login(req, res);
     });
 
-    it('should respond with success if username and password are correct', function(done){
-      var req = mock_request({uname: "test1", pwd: "test11"});
+    it('should respond with success if username and password are correct', function (done) {
+      var req = mockRequest({uname: 'test1', pwd: 'test11'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (req.session).should.have.property('loggedin', true);
         (req.session).should.have.property('uname', 'test1');
         (res.body).should.have.property('uname', 'test1');
@@ -73,11 +74,11 @@ describe('Player Routes', function(){
     });
   });
 
-  describe('POST /register', function(){
-    it('should respond with an error for invalid parameters', function(done){
-      var req = mock_request();
+  describe('POST /register', function () {
+    it('should respond with an error for invalid parameters', function (done) {
+      var req = mockRequest();
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.body).should.have.property('error', 'Invalid params');
         done();
       });
@@ -85,10 +86,10 @@ describe('Player Routes', function(){
       playerRoutes.register(req, res);
     });
 
-    it('should respond with an error if username already exists', function(done){
-      var req = mock_request({uname: "test1", pwd: "test111"});
+    it('should respond with an error if username already exists', function (done) {
+      var req = mockRequest({uname: 'test1', pwd: 'test111'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.body).should.have.property('error', 'Username already exists');
         done();
       });
@@ -96,21 +97,22 @@ describe('Player Routes', function(){
       playerRoutes.register(req, res);
     });
 
-    it('should respond with success if player successfully added to db and registered', function(done){
-      var req = mock_request({uname: "test2", pwd: "test222"});
+    it('should respond with success if player successfully added to db and registered', function (done) {
+      var req = mockRequest({uname: 'test2', pwd: 'test222'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (req.session).should.have.property('loggedin', true);
         (req.session).should.have.property('uname', 'test2');
         (res.body).should.have.property('uname', 'test2');
 
-        TestPlayers.findByUsername('test2', function(err, user){
+        TestPlayers.findByUsername('test2', function (err, user) {
           if (err) {
             done(err);
           }
           else {
             should.exist(user);
-            (user.authenticate('test222')).should.be.true;
+            var authenticated = user.authenticate('test222');
+            authenticated.should.be.ok();
             done();
           }
         });
@@ -120,33 +122,33 @@ describe('Player Routes', function(){
     });
   });
 
-  describe('GET /home', function(){
-    it('should redirect to landing page if no user is loggedin', function(done){
-      var req = mock_request();
+  describe('GET /home', function () {
+    it('should redirect to landing page if no user is loggedin', function (done) {
+      var req = mockRequest();
 
-      var res = mock_response(function(){
-        (res.redirect_path).should.equal('/');
+      var res = mockResponse(function () {
+        (res.redirectPath).should.equal('/');
         done();
       });
 
       playerRoutes.home(req, res);
     });
 
-    it('should render the homepage with the appropriate parameters if a user is loggedin', function(done){
-      var req = mock_request(null, {
+    it('should render the homepage with the appropriate parameters if a user is loggedin', function (done) {
+      var req = mockRequest(null, {
         loggedin: true,
         uname: 'test1',
         stats: {
-          "wins": 11,
-          "loses": 5
+          wins: 11,
+          loses: 5
         }
       });
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (res.view).should.equal('home');
-        (res.render_params.uname).should.equal('test1');
-        (res.render_params.stats.wins).should.equal(11);
-        (res.render_params.stats.loses).should.equal(5);
+        (res.renderParams.uname).should.equal('test1');
+        (res.renderParams.stats.wins).should.equal(11);
+        (res.renderParams.stats.loses).should.equal(5);
         done();
       });
 
@@ -154,14 +156,14 @@ describe('Player Routes', function(){
     });
   });
 
-  describe('GET /logout', function(){
-    it('should reset the session object to logout player and redirects to root', function(done){
-      var req = mock_request(null, {loggedin: true, uname: 'test1'});
+  describe('GET /logout', function () {
+    it('should reset the session object to logout player and redirects to root', function (done) {
+      var req = mockRequest(null, {loggedin: true, uname: 'test1'});
 
-      var res = mock_response(function(){
+      var res = mockResponse(function () {
         (req.session).should.have.property('loggedin', false);
         (req.session).should.have.property('uname', null);
-        (res.redirect_path).should.equal('/');
+        (res.redirectPath).should.equal('/');
 
         done();
       });
@@ -170,8 +172,11 @@ describe('Player Routes', function(){
     });
   });
 
-  after(function(done){
-    TestPlayers.remove({}, function(err){
+  after(function (done) {
+    TestPlayers.remove({}, function (err) {
+      if (err) {
+        done(err);
+      }
       mongoose.connection.close();
       done();
     });

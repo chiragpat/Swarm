@@ -1,3 +1,5 @@
+'use strict';
+
 var MockRequest = function (body, session, params) {
   body = body || {};
   session = session || {};

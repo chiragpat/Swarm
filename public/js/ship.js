@@ -1,7 +1,7 @@
 /*global Kinetic*/
 (function () {
   'use strict';
-  function Ship(options) {
+  function Ship (options) {
     options = options || {};
     this.x = options.x || 15;
     this.y = options.y || 15;
@@ -70,11 +70,11 @@
       options = options || {};
       options.thetaDur = options.thetaDur || 1;
       options.onFinish = options.onFinish || function () {};
-      options.easing   = options.easing   || 'ease-out';
+      options.easing = options.easing || 'ease-out';
 
       var shape = this.kineticShape,
           shipVector = {x: 0, y: -1},
-          ptVector   = {x: pt.x - shape.getX(), y: pt.y - shape.getY()},
+          ptVector = {x: pt.x - shape.getX(), y: pt.y - shape.getY()},
           magPtVector = Math.sqrt(ptVector.x * ptVector.x + ptVector.y * ptVector.y);
 
       var theta = Math.acos(
@@ -184,14 +184,14 @@
         x: this.x,
         y: this.y,
         radius: 1,
-        fill: 'black',
+        fill: 'black'
       });
 
       var circle2 = new Kinetic.Circle({
         x: this.x,
         y: this.y,
         radius: 1,
-        fill: 'white',
+        fill: 'white'
       });
 
       this.explosionLayer.add(circle);
@@ -224,8 +224,8 @@
       }, this.explosionLayer);
 
       anim.start();
-    },
+    }
   };
 
   window.Ship = Ship;
-})();
+}());
