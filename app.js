@@ -1,5 +1,4 @@
 'use strict';
-require('newrelic');
 /**
  * Module dependencies.
  */
@@ -13,7 +12,12 @@ var express = require('express'),
     socketServer = require('./lib/socket-server');
 
 var dust = require('consolidate').dust;
-var MongoStore = require('connect-mongo')(express);
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var morgan = require('morgan');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var errorhandler = require('errorhandler');
 var app = express();
 
 app.engine('dust', dust);
@@ -22,27 +26,20 @@ app.engine('dust', dust);
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'dust');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-// app.use(express.compress());
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser());
-app.use(express.session({
+app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(cookieParser());
+app.use(session({
   secret: 'shhitsasecret',
   store: new MongoStore({
     'url': process.env.SWARM_DB_URL,
-    'clear_interval': 3600
-  })
+    'clear_interval': 3600,
+    auto_reconnect: true
+  }),
+  resave: false,
+  saveUninitialized: false
 }));
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
-// app.use(gzip.staticGzip(path.join(__dirname, 'public')));
-
-// development only
-if (app.get('env') === 'development') {
-  app.use(express.errorHandler());
-}
 
 app.get('/', routes.index);
 
@@ -60,6 +57,13 @@ app.get('/game/:id', games.renderGame);
 app.get('/animation-demo', function (req, res) {
   res.render('animation-demo');
 });
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if (app.get('env') === 'development') {
+  app.use(errorhandler());
+}
 
 if (require.main === module) {
   var server = http.createServer(app).listen(app.get('port'), function () {
