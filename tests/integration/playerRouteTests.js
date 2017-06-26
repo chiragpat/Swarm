@@ -112,7 +112,7 @@ describe('Player Routes', function () {
           else {
             should.exist(user);
             var authenticated = user.authenticate('test222');
-            authenticated.should.be.ok();
+            authenticated.should.equal(true);
             done();
           }
         });

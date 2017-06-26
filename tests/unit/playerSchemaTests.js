@@ -58,7 +58,7 @@ describe('Player Schema', function () {
         }
         else {
           should.not.exist(err);
-          exists.should.be.ok();
+          exists.should.equal(true);
           done();
         }
       });
@@ -70,7 +70,7 @@ describe('Player Schema', function () {
           done(err);
         }
         else {
-          exists.should.be.not.ok();
+          exists.should.equal(false);
           done();
         }
       });
@@ -79,12 +79,12 @@ describe('Player Schema', function () {
 
   describe('#authenticate', function () {
     it('should return true if the password matches the user password', function (done) {
-      (player1.authenticate('test11')).should.be.ok();
+      (player1.authenticate('test11')).should.equal(true);
       done();
     });
 
     it('should return false if the password does not match the user password', function (done) {
-      (player1.authenticate('test111')).should.be.not.ok();
+      (player1.authenticate('test111')).should.equal(false);
       done();
     });
   });
