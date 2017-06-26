@@ -1,10 +1,10 @@
-Swarm      
+Swarm
 ===
 [![Build Status](https://api.travis-ci.org/chiragpat/Swarm.png)](http://travis-ci.org/chiragpat/Swarm)
 
 
 Multiplayer game built using HTML5 and node.js.
-[Live Version Here](http://swarm.jit.su)
+[Live Version Here](http://swarm.chiragpat.com)
 
 ## Features to Check Out
 
@@ -22,7 +22,7 @@ The system is pretty simple from the outside, so I think you will notice all of 
         $ git clone git@github.com:chiragpat/Swarm.git
 
 3. Install dependencies
-        
+
         $ npm install
 
 4. Set environment variable SWARM_DB_URL to the url of your mongo database.
@@ -31,7 +31,7 @@ The system is pretty simple from the outside, so I think you will notice all of 
 
 
 ## Quick Start
-To start game server 
+To start game server
 
     $ node app.js
 
